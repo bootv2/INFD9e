@@ -6,7 +6,10 @@ package doolhof;
 
 import java.awt.*;
 import java.io.*;
+import java.net.URLDecoder;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -18,14 +21,24 @@ public class Map {
     private Scanner m;
     private String Map[] = new String[16];
     
+    private String resPath;
+    
     private Image grass, wall, finish;
     
     public Map(){
-        ImageIcon img = new ImageIcon("C://grass.png");
+        
+        String path = Map.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.
+        try {
+            resPath = URLDecoder.decode(path, "UTF-8") + "res/";//decode this path from utf-8 to a regular string.
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        ImageIcon img = new ImageIcon(resPath + "grass.png");
         grass = img.getImage();
-        img = new ImageIcon("C://wall.png");
+        img = new ImageIcon(resPath + "wall.png");
         wall = img.getImage();
-        img = new ImageIcon("C://finish.png");
+        img = new ImageIcon(resPath + "finish.png");
         finish = img.getImage();
         
         openFile();
@@ -52,7 +65,7 @@ public class Map {
     
     public void openFile(){
         try{
-            m = new Scanner(new File("C://Map.txt"));
+            m = new Scanner(new File(resPath + "Map.txt"));
         }
         catch(Exception e){
             System.out.println("Error Map");

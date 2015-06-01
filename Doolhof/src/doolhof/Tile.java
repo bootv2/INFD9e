@@ -1,29 +1,47 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package doolhof;
 
-import java.awt.*;
+import java.awt.Image;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.*;
+import javax.swing.ImageIcon;
 
 /**
  *
- * @author Singh
+ * @author TTT
  */
-public class Player extends Item {
+public class Tile 
+{
+    private int tileX, tileY;
     
+    Item myItem;
+    
+    private Image bgImg;
     private String resPath;
     
+    public int getTileX(){
+        return tileX;
+    }
+    public int getTileY(){
+        return tileY;
+    }
     
-    private Image player;
-            
-    public Player(){
-        
+    public void setTileX(int tileX) {
+        this.tileX = tileX;
+    }
+
+    public void setTileY(int tileY) {
+        this.tileY = tileY;
+    }
+    
+    public Tile()
+    {
         String path = Map.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.
         try {
             resPath = URLDecoder.decode(path, "UTF-8") + "res/";//decode this path from utf-8 to a regular string.
@@ -31,22 +49,8 @@ public class Player extends Item {
             Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        ImageIcon img = new ImageIcon(resPath + "player.png");
-        player = img.getImage();
+        ImageIcon img = new ImageIcon(resPath + "grass.png");
+        bgImg = img.getImage();
     }
     
-    //return player picture
-    public Image getPlayer(){
-        return player;
-    }
-    
-    
-    
-    
-    // if direction x -1  = left x +1 = right
-    //move this move function to the map class so a tile can have an item, which can be a player
-    public void move(int dx, int dy){               
-        tileX += dx;
-        tileY += dy;
-    }
 }

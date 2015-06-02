@@ -16,32 +16,34 @@ import javax.swing.ImageIcon;
  *
  * @author TTT
  */
-public class Tile 
-{
+public class Tile {
+
     private int tileX, tileY;
-    
+
     Item myItem;
-    
+
     private Image bgImg;
 
-    public Item getMyItem() 
-    {
-        if(myItem == null)  myItem = new Item(this);
-        myItem.setMySprite(bgImg);
+    public Item getMyItem() {
+        if (myItem == null) {
+            myItem = new Item(this);
+            myItem.setMySprite(bgImg);
+        }
         return myItem;
     }
 
     public void setMyItem(Item myItem) {
         this.myItem = myItem;
     }
-    
-    public int getTileX(){
+
+    public int getTileX() {
         return tileX;
     }
-    public int getTileY(){
+
+    public int getTileY() {
         return tileY;
     }
-    
+
     public void setTileX(int tileX) {
         this.tileX = tileX;
     }
@@ -49,15 +51,15 @@ public class Tile
     public void setTileY(int tileY) {
         this.tileY = tileY;
     }
-    
+
     /**
-     * this constructor initialises the tile and places it on the board for drawing
+     * this constructor initialises the tile and places it on the board for
+     * drawing
+     *
      * @param x
-     * @param y 
+     * @param y
      */
-    
-    public Tile(int x, int y)
-    {
+    public Tile(int x, int y) {
         String resPath = "";
         String path = Map.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.
         try {
@@ -65,9 +67,12 @@ public class Tile
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         ImageIcon img = new ImageIcon(resPath + "grass.png");
         bgImg = img.getImage();
+        
+        tileX = x;
+        tileY = y;
     }
-    
+
 }

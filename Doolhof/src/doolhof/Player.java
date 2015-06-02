@@ -20,12 +20,12 @@ import javax.swing.*;
 public class Player extends Item {
 
     Map map;
-
-    Player p;
+    boolean paused;
 
     public Player(Tile t, Map map) {
         super(t);
-        p = this;
+
+        paused = false;
 
         this.map = map;
 
@@ -40,49 +40,69 @@ public class Player extends Item {
 
         ImageIcon img = new ImageIcon(resPath + "player.png");
         setMySprite(img.getImage());
-        map.setAl(new Al());
+        map.setAl(new Al(this));
     }
 
     // if direction x -1  = left x +1 = right
     //move this move function to the map class so a tile can have an item, which can be a player
     public void move(int dx, int dy) {
-        getMyTile().setTileX(getMyTile().getTileX() + dx);
-        getMyTile().setTileY(getMyTile().getTileY() + dy);
+        getMyTile().setMyItem(null);
+        if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof Finish) {
+            System.out.println("FINISH!!!!!");
+            paused = true;
+        }
+        setMyTile(map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy));
+        getMyTile().setMyItem(this);
     }
 
     //ActionListener
     public class Al extends KeyAdapter {
 
+        Player p;
+
+        public Al(Player p) {
+            this.p = p;
+        }
+
         public void keyPressed(KeyEvent e) {
             int keycode = e.getKeyCode();
 
-            if (keycode == KeyEvent.VK_W) {
-                //voorlopige Collision met if
-                if (p.getMyTile().getTileY() != 0) {
-                    if (!(map.getTile(p.getMyTile().getTileX(), p.getMyTile().getTileY() - 1).getMyItem() instanceof Wall)) {
-                        p.move(0, -1);
-                    }
-                }
+            if (keycode == KeyEvent.VK_P) {
+                paused = !paused;
+                System.out.println("Player pos: " + p.getMyTile().getTileX() + ", " + p.getMyTile().getTileX());
+            }
 
-            }
-            if (keycode == KeyEvent.VK_S) {
-                if (p.getMyTile().getTileY() != 13) {
-                    if (!(map.getTile(p.getMyTile().getTileX(), p.getMyTile().getTileY() + 1).getMyItem() instanceof Wall)) {
-                        p.move(0, 1);
-                    }System.out.println("collidide south");
+            if (!paused) {
+                if (keycode == KeyEvent.VK_W) {
+                //voorlopige Collision met if
+
+                    if (p.getMyTile().getTileY() != 0) {
+                        if (!(map.getTile(p.getMyTile().getTileX(), p.getMyTile().getTileY() - 1).getMyItem() instanceof Wall)) {
+                            p.move(0, -1);
+
+                        }
+                    }
+
                 }
-            }
-            if (keycode == KeyEvent.VK_A) {
-                if (p.getMyTile().getTileX() != 0) {
-                    if (!(map.getTile(p.getMyTile().getTileX() - 1, p.getMyTile().getTileY()).getMyItem() instanceof Wall)) {
-                        p.move(-1, 0);
+                if (keycode == KeyEvent.VK_S) {
+                    if (p.getMyTile().getTileY() != 14) {
+                        if (!(map.getTile(p.getMyTile().getTileX(), p.getMyTile().getTileY() + 1).getMyItem() instanceof Wall)) {
+                            p.move(0, 1);
+                        }
                     }
                 }
-            }
-            if (keycode == KeyEvent.VK_D) {
-                if (p.getMyTile().getTileX() != 13) {
-                    if (!(map.getTile(p.getMyTile().getTileX() + 1, p.getMyTile().getTileY()).getMyItem() instanceof Wall)) {
-                        p.move(1, 0);
+                if (keycode == KeyEvent.VK_A) {
+                    if (p.getMyTile().getTileX() != 0) {
+                        if (!(map.getTile(p.getMyTile().getTileX() - 1, p.getMyTile().getTileY()).getMyItem() instanceof Wall)) {
+                            p.move(-1, 0);
+                        }
+                    }
+                }
+                if (keycode == KeyEvent.VK_D) {
+                    if (p.getMyTile().getTileX() != 14) {
+                        if (!(map.getTile(p.getMyTile().getTileX() + 1, p.getMyTile().getTileY()).getMyItem() instanceof Wall)) {
+                            p.move(1, 0);
+                        }
                     }
                 }
             }

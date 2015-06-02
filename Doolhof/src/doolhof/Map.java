@@ -21,9 +21,7 @@ import javax.swing.*;
  *
  * @author Singh
  */
-public class Map implements ActionListener {
-
-    Board drawBoard;
+public class Map{
     
     private Scanner m;
     private String[] map = new String[16];
@@ -51,9 +49,8 @@ public class Map implements ActionListener {
     }
 
 
-    public Map(Board b) {
+    public Map() {
         
-        drawBoard = b;
 
         openFile();
         readFile();
@@ -107,15 +104,16 @@ public class Map implements ActionListener {
             for(int y = 0; y < 14; y++)
             {
                 t = new Tile(x, y);
-                if(map[y].charAt(x) == 'p')
+                if(map[x].charAt(y) == 'p')
                 {
                     item = new Player(t, this);
+                    p = (Player)item;
                 }
-                else if(map[y].charAt(x) == 'w')
+                else if(map[x].charAt(y) == 'w')
                 {
                     item = new Wall(t);
                 }
-                else if(map[y].charAt(x) == 'f')
+                else if(map[x].charAt(y) == 'f')
                 {
                     item = new Finish(t);
                 }
@@ -143,15 +141,7 @@ public class Map implements ActionListener {
         m.close();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-
-        /*if (getTile(p.getMyTile().getTileX(), p.getMyTile().getTileY()).getMyItem() instanceof Finish) {
-            //JOptionPane.showMessageDialog(this, "You have completed the first level!");
-            //Message = "You have completed this level";
-        }*/
-        drawBoard.repaint();
-    }
+   
 
     public Player getP() {
         return p;

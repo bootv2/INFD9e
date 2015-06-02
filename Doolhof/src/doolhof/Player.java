@@ -5,6 +5,8 @@
 package doolhof;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.logging.Level;
@@ -16,9 +18,17 @@ import javax.swing.*;
  * @author Singh
  */
 public class Player extends Item {
+    
+    Map map;
+    
+    Player p;
             
-    public Player(Tile t){
+    public Player(Tile t, Map map){
         super(t);
+        p = this;
+        
+        this.map = map;
+        
         String resPath = "";
         
         String path = Map.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.
@@ -30,8 +40,8 @@ public class Player extends Item {
         
         ImageIcon img = new ImageIcon(resPath + "player.png");
         setMySprite(img.getImage());
+        map.setAl(new Al());
     }
-    
     
     
     
@@ -40,5 +50,46 @@ public class Player extends Item {
     public void move(int dx, int dy){               
         getMyTile().setTileX(getMyTile().getTileX() + dx);
         getMyTile().setTileY(getMyTile().getTileY() + dy);
+    }
+    
+    
+    
+    //ActionListener
+    public class Al extends KeyAdapter {
+
+        public void keyPressed(KeyEvent e) {
+            int keycode = e.getKeyCode();
+
+            if (keycode == KeyEvent.VK_W) {
+                //voorlopige Collision met if
+                if (!(map.getTile(p.getMyTile().getTileX(), p.getMyTile().getTileY() - 1).getMyItem() instanceof Wall)) {
+                    p.move(0, -1);
+                }
+
+            }
+            if (keycode == KeyEvent.VK_S) {
+                if (!(map.getTile(p.getMyTile().getTileX(), p.getMyTile().getTileY() + 1).getMyItem() instanceof Wall)) {
+                    p.move(0, 1);
+                }
+            }
+            if (keycode == KeyEvent.VK_A) {
+                if (!(map.getTile(p.getMyTile().getTileX() - 1, p.getMyTile().getTileY()).getMyItem() instanceof Wall)) {
+                    p.move(-1, 0);
+                }
+            }
+            if (keycode == KeyEvent.VK_D) {
+                if (!(map.getTile(p.getMyTile().getTileX() + 1, p.getMyTile().getTileY()).getMyItem() instanceof Wall)) {
+                    p.move(1, 0);
+                }
+            }
+        }
+
+        public void keyReleased(KeyEvent e) {
+
+        }
+
+        public void keyTyped(KeyEvent e) {
+
+        }
     }
 }

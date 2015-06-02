@@ -13,13 +13,13 @@ import java.awt.Image;
  */
 public class Item 
 {
-
-    public Item(Tile myTile) {
-        this.myTile = myTile;
-    }
     
     private Image mySprite;
     private Tile myTile;
+    
+    public Item(Tile myTile) {
+        this.myTile = myTile;
+    }
 
     public Tile getMyTile() {
         return myTile;

@@ -23,6 +23,17 @@ public class Tile
     Item myItem;
     
     private Image bgImg;
+
+    public Item getMyItem() 
+    {
+        if(myItem == null)  myItem = new Item(this);
+        myItem.setMySprite(bgImg);
+        return myItem;
+    }
+
+    public void setMyItem(Item myItem) {
+        this.myItem = myItem;
+    }
     
     public int getTileX(){
         return tileX;
@@ -39,7 +50,13 @@ public class Tile
         this.tileY = tileY;
     }
     
-    public Tile()
+    /**
+     * this constructor initialises the tile and places it on the board for drawing
+     * @param x
+     * @param y 
+     */
+    
+    public Tile(int x, int y)
     {
         String resPath = "";
         String path = Map.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.

@@ -4,6 +4,7 @@
  */
 package doolhof;
 
+import doolhof.Player.Al;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,9 +23,18 @@ import javax.swing.*;
  */
 public class Map implements ActionListener {
 
+    
+    private Scanner m;
+    private String[] map = new String[16];
+    private Tile[][] tMap = new Tile[16][16];
+
+    private String resPath;
+
+    private Image grass, wall, finish;
+    
     private Player p;
     
-    Al al = new Al();
+    private Al al;
 
     public Al getAl() {
         return al;
@@ -33,19 +43,20 @@ public class Map implements ActionListener {
     public void setAl(Al al) {
         this.al = al;
     }
+    
+    public Tile getTile(int x, int y)
+    {
+        return tMap[x][y];
+    }
 
-    private Scanner m;
-    private String[] map = new String[16];
-    private Tile[][] tMap = new Tile[16][16];
-
-    private String resPath;
-
-    private Image grass, wall, finish;
 
     public Map() {
+        
+        
 
         openFile();
         readFile();
+        loadFile();
         closeFile();
     }
 
@@ -67,6 +78,7 @@ public class Map implements ActionListener {
     }
 
     public void openFile() {
+        
 
         String path = Map.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.
         try {
@@ -80,9 +92,44 @@ public class Map implements ActionListener {
         } catch (Exception e) {
             System.out.println("Error Map");
         }
+        
+        
 
     }
+    
+    public void loadFile()
+    {
+        Tile t;
+        Item item;
+        for(int x = 0; x < 14; x++)
+        {
+            for(int y = 0; y < 14; y++)
+            {
+                t = new Tile(x, y);
+                if(map[y].charAt(x) == 'p')
+                {
+                    item = new Player(t, this);
+                }
+                else if(map[y].charAt(x) == 'w')
+                {
+                    item = new Wall(t);
+                }
+                else if(map[y].charAt(x) == 'f')
+                {
+                    item = new Finish(t);
+                }
+                else
+                {
+                    item = null;
+                }
+                
+                t.setMyItem(item);
+                tMap[x][y] = t;
+            }
+        }
+    }
 
+    //deprecated
     public void readFile() {
         while (m.hasNext()) {
             for (int i = 0; i < 14; i++) {
@@ -98,10 +145,10 @@ public class Map implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
 
-        if (getMap(p.getMyTile().getTileX(), p.getMyTile().getTileY()).equals("f")) {
+        /*if (getTile(p.getMyTile().getTileX(), p.getMyTile().getTileY()).getMyItem() instanceof Finish) {
             //JOptionPane.showMessageDialog(this, "You have completed the first level!");
             //Message = "You have completed this level";
-        }
+        }*/
         //repaint();
     }
 
@@ -111,45 +158,6 @@ public class Map implements ActionListener {
 
     public void setP(Player p) {
         this.p = p;
-    }
-
-//ActionListener
-    public class Al extends KeyAdapter {
-
-        public void keyPressed(KeyEvent e) {
-            int keycode = e.getKeyCode();
-
-            if (keycode == KeyEvent.VK_W) {
-                //voorlopige Collision met if
-                if (!getMap(p.getMyTile().getTileX(), p.getMyTile().getTileY() - 1).equals("w")) {
-                    p.move(0, -1);
-                }
-
-            }
-            if (keycode == KeyEvent.VK_S) {
-                if (!getMap(p.getMyTile().getTileX(), p.getMyTile().getTileY() + 1).equals("w")) {
-                    p.move(0, 1);
-                }
-            }
-            if (keycode == KeyEvent.VK_A) {
-                if (!getMap(p.getMyTile().getTileX() - 1, p.getMyTile().getTileY()).equals("w")) {
-                    p.move(-1, 0);
-                }
-            }
-            if (keycode == KeyEvent.VK_D) {
-                if (!getMap(p.getMyTile().getTileX() + 1, p.getMyTile().getTileY()).equals("w")) {
-                    p.move(1, 0);
-                }
-            }
-        }
-
-        public void keyReleased(KeyEvent e) {
-
-        }
-
-        public void keyTyped(KeyEvent e) {
-
-        }
     }
 
 }

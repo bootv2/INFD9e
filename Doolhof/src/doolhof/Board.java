@@ -22,6 +22,7 @@ public class Board extends JPanel{
     public Board(){
         
         m = new Map();
+        
         //p = new Player();
         addKeyListener(m.getAl());
         setFocusable(true); //adds to frame
@@ -35,17 +36,9 @@ public class Board extends JPanel{
     public void paint(Graphics g){
         super.paint(g);
         
-        for(int y = 0;y < 14;y++){
-            for(int x = 0;x < 14;x++){
-                if(m.getMap(x, y).equals("f")){
-                    g.drawImage(m.getFinish(), x * 32, y * 32, this);
-                }
-                if(m.getMap(x, y).equals("g")){
-                    g.drawImage(m.getGrass(), x * 32, y * 32, this); //32 pixels
-                }
-                if(m.getMap(x, y).equals("w")){
-                    g.drawImage(m.getWall(), x * 32, y * 32, this); //32 pixels
-                }
+        for(int x = 0;x < 14;x++){
+            for(int y = 0;y < 14;y++){
+                g.drawImage(m.getTile(x, y).getMyItem().getMySprite(), x * 32, y * 32, this);
             }
         }
         //g.drawString(Message, 50, 50);

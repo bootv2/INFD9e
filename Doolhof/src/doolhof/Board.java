@@ -12,32 +12,25 @@ import javax.swing.*;
  *
  * @author Singh
  */
-public class Board extends JPanel implements ActionListener {
+public class Board extends JPanel{
     private Timer timer;
     
     private Map m;
-    private Player p;
+    //private Player p;
     //private String Message = "";
     
     public Board(){
         
         m = new Map();
-        p = new Player();
-        addKeyListener(new Al());
+        //p = new Player();
+        addKeyListener(m.getAl());
         setFocusable(true); //adds to frame
         
-        timer = new Timer(25, this);
+        timer = new Timer(25, m);
         timer.start();
     }
     
-    public void actionPerformed(ActionEvent e){
-        if(m.getMap(p.getMyTile().getTileX(), p.getMyTile().getTileY()).equals("f"))
-        {
-            JOptionPane.showMessageDialog(this, "You have completed the first level!");
-            //Message = "You have completed this level";
-        }
-        repaint();
-    }
+    
     
     public void paint(Graphics g){
         super.paint(g);
@@ -57,50 +50,9 @@ public class Board extends JPanel implements ActionListener {
         }
         //g.drawString(Message, 50, 50);
         
-        g.drawImage(p.getMySprite(), p.getMyTile().getTileX() * 32, p.getMyTile().getTileY() * 32, this);
+        //g.drawImage(p.getMySprite(), p.getMyTile().getTileX() * 32, p.getMyTile().getTileY() * 32, this);
+        //NEED NEW CODE TO DRAW PLAYER
     }
     
-    //ActionListener
-    public class Al extends KeyAdapter
-    {
-        public void keyPressed(KeyEvent e)
-        {
-            int keycode = e.getKeyCode();
-            
-            if(keycode == KeyEvent.VK_W){
-                //voorlopige Collision met if
-                if(!m.getMap(p.getMyTile().getTileX(), p.getMyTile().getTileY() - 1).equals("w"))
-                {
-                    p.move(0, -1);
-                }
-                
-            }
-            if(keycode == KeyEvent.VK_S){
-                if(!m.getMap(p.getMyTile().getTileX(), p.getMyTile().getTileY() + 1).equals("w"))
-                {
-                    p.move(0, 1);
-                }
-            }
-            if(keycode == KeyEvent.VK_A){
-                if(!m.getMap(p.getMyTile().getTileX() - 1, p.getMyTile().getTileY()).equals("w"))
-                {
-                    p.move(-1, 0);
-                }
-            }
-            if(keycode == KeyEvent.VK_D){
-                if(!m.getMap(p.getMyTile().getTileX() + 1, p.getMyTile().getTileY()).equals("w"))
-                {
-                    p.move(1, 0);
-                }
-            }
-        }
-        public void keyReleased(KeyEvent e)
-        {
-        
-        }
-        public void keyTyped(KeyEvent e)
-        {
-        
-        }
-    }
+    
 }

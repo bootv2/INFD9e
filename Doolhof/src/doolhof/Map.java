@@ -19,7 +19,7 @@ import javax.swing.*;
 public class Map {
     
     private Scanner m;
-    private String Map[] = new String[16];
+    private String[] map = new String[16];
     
     private String resPath;
     
@@ -59,7 +59,7 @@ public class Map {
     }
     
     public String getMap(int x, int y){
-        String index = Map[y].substring(x, x+1);
+        String index = map[y].substring(x, x+1);
         return index;
     }
     
@@ -76,7 +76,7 @@ public class Map {
     public void readFile(){
         while(m.hasNext()){
             for(int i = 0; i < 14; i++){
-                Map[i] = m.next(); //pakt per lijn
+                map[i] = m.next(); //pakt per lijn
             }
         }
     }
@@ -84,5 +84,7 @@ public class Map {
     public void closeFile(){
         m.close();
     }
+    
+    
     
 }

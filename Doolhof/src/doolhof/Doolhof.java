@@ -11,6 +11,8 @@ import javax.swing.JFrame;
  * @author Singh
  */
 public class Doolhof {
+    
+    private Board b;
 
     /**
      * @param args the command line arguments
@@ -23,7 +25,8 @@ public class Doolhof {
         {
             JFrame f = new JFrame();
             f.setTitle("Spel 9e");
-            f.add(new Board());
+            b = new Board();
+            f.add(b);
             f.setSize(464, 485);
             f.setLocationRelativeTo(null); //voor centering
             f.setVisible(true);

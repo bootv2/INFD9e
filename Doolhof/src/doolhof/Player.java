@@ -16,13 +16,10 @@ import javax.swing.*;
  * @author Singh
  */
 public class Player extends Item {
-    
-    private String resPath;
-    
-    
-    private Image player;
             
     public Player(){
+        
+        String resPath = "";
         
         String path = Map.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.
         try {
@@ -32,12 +29,7 @@ public class Player extends Item {
         }
         
         ImageIcon img = new ImageIcon(resPath + "player.png");
-        player = img.getImage();
-    }
-    
-    //return player picture
-    public Image getPlayer(){
-        return player;
+        setMySprite(img.getImage());
     }
     
     
@@ -46,7 +38,7 @@ public class Player extends Item {
     // if direction x -1  = left x +1 = right
     //move this move function to the map class so a tile can have an item, which can be a player
     public void move(int dx, int dy){               
-        tileX += dx;
-        tileY += dy;
+        getMyTile().setTileX(getMyTile().getTileX() + dx);
+        getMyTile().setTileY(getMyTile().getTileY() + dy);
     }
 }

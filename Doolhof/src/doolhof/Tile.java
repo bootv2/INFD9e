@@ -23,7 +23,6 @@ public class Tile
     Item myItem;
     
     private Image bgImg;
-    private String resPath;
     
     public int getTileX(){
         return tileX;
@@ -42,6 +41,7 @@ public class Tile
     
     public Tile()
     {
+        String resPath = "";
         String path = Map.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.
         try {
             resPath = URLDecoder.decode(path, "UTF-8") + "res/";//decode this path from utf-8 to a regular string.

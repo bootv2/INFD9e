@@ -31,7 +31,7 @@ public class Board extends JPanel implements ActionListener {
     }
     
     public void actionPerformed(ActionEvent e){
-        if(m.getMap(p.getTileX(), p.getTileY()).equals("f"))
+        if(m.getMap(p.getMyTile().getTileX(), p.getMyTile().getTileY()).equals("f"))
         {
             JOptionPane.showMessageDialog(this, "You have completed the first level!");
             //Message = "You have completed this level";
@@ -57,7 +57,7 @@ public class Board extends JPanel implements ActionListener {
         }
         //g.drawString(Message, 50, 50);
         
-        g.drawImage(p.getPlayer(), p.getTileX() * 32, p.getTileY() * 32, this);
+        g.drawImage(p.getMySprite(), p.getMyTile().getTileX() * 32, p.getMyTile().getTileY() * 32, this);
     }
     
     //ActionListener
@@ -69,26 +69,26 @@ public class Board extends JPanel implements ActionListener {
             
             if(keycode == KeyEvent.VK_W){
                 //voorlopige Collision met if
-                if(!m.getMap(p.getTileX(), p.getTileY() - 1).equals("w"))
+                if(!m.getMap(p.getMyTile().getTileX(), p.getMyTile().getTileY() - 1).equals("w"))
                 {
                     p.move(0, -1);
                 }
                 
             }
             if(keycode == KeyEvent.VK_S){
-                if(!m.getMap(p.getTileX(), p.getTileY() + 1).equals("w"))
+                if(!m.getMap(p.getMyTile().getTileX(), p.getMyTile().getTileY() + 1).equals("w"))
                 {
                     p.move(0, 1);
                 }
             }
             if(keycode == KeyEvent.VK_A){
-                if(!m.getMap(p.getTileX() - 1, p.getTileY()).equals("w"))
+                if(!m.getMap(p.getMyTile().getTileX() - 1, p.getMyTile().getTileY()).equals("w"))
                 {
                     p.move(-1, 0);
                 }
             }
             if(keycode == KeyEvent.VK_D){
-                if(!m.getMap(p.getTileX() + 1, p.getTileY()).equals("w"))
+                if(!m.getMap(p.getMyTile().getTileX() + 1, p.getMyTile().getTileY()).equals("w"))
                 {
                     p.move(1, 0);
                 }

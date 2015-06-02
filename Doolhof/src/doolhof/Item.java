@@ -5,10 +5,30 @@
  */
 package doolhof;
 
+import java.awt.Image;
+
 /**
  *
  * @author TTT
  */
-public class Item {
-    
+public class Item 
+{
+    private Image mySprite;
+    private Tile myTile;
+
+    public Tile getMyTile() {
+        return myTile;
+    }
+
+    public void setMyTile(Tile myTile) {
+        this.myTile = myTile;
+    }
+
+    public Image getMySprite() {
+        return mySprite;
+    }
+
+    public void setMySprite(Image mySprite) {
+        this.mySprite = mySprite;
+    }
 }

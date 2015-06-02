@@ -12,7 +12,7 @@ import javax.swing.*;
  *
  * @author Singh
  */
-public class Board extends JPanel{
+public class Board extends JPanel {
     private Timer timer;
     
     private Map m;
@@ -21,7 +21,7 @@ public class Board extends JPanel{
     
     public Board(){
         
-        m = new Map();
+        m = new Map(this);
         
         //p = new Player();
         addKeyListener(m.getAl());

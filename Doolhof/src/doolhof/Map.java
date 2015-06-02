@@ -23,6 +23,7 @@ import javax.swing.*;
  */
 public class Map implements ActionListener {
 
+    Board drawBoard;
     
     private Scanner m;
     private String[] map = new String[16];
@@ -50,9 +51,9 @@ public class Map implements ActionListener {
     }
 
 
-    public Map() {
+    public Map(Board b) {
         
-        
+        drawBoard = b;
 
         openFile();
         readFile();
@@ -149,7 +150,7 @@ public class Map implements ActionListener {
             //JOptionPane.showMessageDialog(this, "You have completed the first level!");
             //Message = "You have completed this level";
         }*/
-        //repaint();
+        drawBoard.repaint();
     }
 
     public Player getP() {

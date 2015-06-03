@@ -94,16 +94,16 @@ public class Map{
             for(int y = 0; y < 14; y++)
             {
                 t = new Tile(x, y);
-                if(rawMap[x].charAt(y) == 'p')
+                if(rawMap[y].charAt(x) == 'p')//x and y flipped because every String is a row of tiles on the x axis
                 {
                     item = new Player(t, this);
                     p = (Player)item;
                 }
-                else if(rawMap[x].charAt(y) == 'w')
+                else if(rawMap[y].charAt(x) == 'w')
                 {
                     item = new Wall(t);
                 }
-                else if(rawMap[x].charAt(y) == 'f')
+                else if(rawMap[y].charAt(x) == 'f')
                 {
                     item = new Finish(t);
                 }

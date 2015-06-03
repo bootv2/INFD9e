@@ -17,17 +17,10 @@ import javax.swing.ImageIcon;
  */
 public class Wall extends Item
 {
-    
     public Wall(Tile myTile) {
         super(myTile);
-        String resPath = "";
-        String path = Map.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.
-        try {
-            resPath = URLDecoder.decode(path, "UTF-8") + "res/";//decode this path from utf-8 to a regular string.
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ImageIcon img = new ImageIcon(resPath + "wall.png");
+        
+        ImageIcon img = new ImageIcon(getResPath() + "wall.png");
         
         setMySprite(img.getImage());
     }

@@ -24,12 +24,9 @@ import javax.swing.*;
 public class Map{
     
     private Scanner m;
-    private String[] map = new String[16];
     private Tile[][] tMap = new Tile[16][16];
 
     private String resPath;
-
-    private Image grass, wall, finish;
     
     private Player p;
     
@@ -51,42 +48,30 @@ public class Map{
 
     public Map() {
         
-
-        openFile();
-        readFile();
-        loadFile();
+        findResourcePath();
+        openFile("map.txt");
+        loadFile(readFile());
         closeFile();
     }
-
-    public Image getGrass() {
-        return grass;
-    }
-
-    public Image getWall() {
-        return wall;
-    }
-
-    public Image getFinish() {
-        return finish;
-    }
-
-    public String getMap(int x, int y) {
-        String index = map[y].substring(x, x + 1);
-        return index;
-    }
-
-    public void openFile() {
-        
-
+    
+    public void findResourcePath()
+    {
         String path = Map.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.
         try {
             resPath = URLDecoder.decode(path, "UTF-8") + "res/";//decode this path from utf-8 to a regular string.
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /**
+     * Opens file f
+     * @param f 
+     */
+    public void openFile(String f) {
 
         try {
-            m = new Scanner(new File(resPath + "Map.txt"));
+            m = new Scanner(new File(resPath + f));
         } catch (Exception e) {
             System.out.println("Error Map");
         }
@@ -95,8 +80,13 @@ public class Map{
 
     }
     
-    public void loadFile()
+    /**
+     * Loads the tilemap from argument String[] rawMap
+     * @param rawMap 
+     */
+    public void loadFile(String[] rawMap)
     {
+        Item.setResPath(resPath);
         Tile t;
         Item item;
         for(int x = 0; x < 14; x++)
@@ -104,16 +94,16 @@ public class Map{
             for(int y = 0; y < 14; y++)
             {
                 t = new Tile(x, y);
-                if(map[x].charAt(y) == 'p')
+                if(rawMap[x].charAt(y) == 'p')
                 {
                     item = new Player(t, this);
                     p = (Player)item;
                 }
-                else if(map[x].charAt(y) == 'w')
+                else if(rawMap[x].charAt(y) == 'w')
                 {
                     item = new Wall(t);
                 }
-                else if(map[x].charAt(y) == 'f')
+                else if(rawMap[x].charAt(y) == 'f')
                 {
                     item = new Finish(t);
                 }
@@ -128,15 +118,25 @@ public class Map{
         }
     }
 
-    //deprecated
-    public void readFile() {
+    /**
+     * Reads the open file into a String[]
+     * @return String[14] rawMap
+     */
+    public String[] readFile() {
+        String[] map = new String[14];
         while (m.hasNext()) {
             for (int i = 0; i < 14; i++) {
                 map[i] = m.next(); //pakt per lijn
             }
         }
+        return map;
     }
 
+    /**
+     * closes the current file
+     * DO NOT FORGET THIS!!!
+     * only one file can be open at a time
+     */
     public void closeFile() {
         m.close();
     }

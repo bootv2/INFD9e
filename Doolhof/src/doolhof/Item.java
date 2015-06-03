@@ -13,10 +13,15 @@ import java.awt.Image;
  */
 public class Item 
 {
-    
+    private static String resPath = "";
+
     private Image mySprite;
     private Tile myTile;
     
+    /**
+     * Create a new item, and referenc a tile so the item knows where it's placed
+     * @param myTile 
+     */
     public Item(Tile myTile) {
         this.myTile = myTile;
     }
@@ -35,5 +40,13 @@ public class Item
 
     public void setMySprite(Image mySprite) {
         this.mySprite = mySprite;
+    }
+    
+    public static String getResPath() {
+        return resPath;
+    }
+
+    public static void setResPath(String resPath) {
+        Item.resPath = resPath;
     }
 }

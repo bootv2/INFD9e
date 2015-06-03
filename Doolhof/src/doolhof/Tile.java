@@ -20,10 +20,14 @@ public class Tile {
 
     private int tileX, tileY;
 
-    Item myItem;
+    private Item myItem;
 
     private Image bgImg;
 
+    /**
+     * 
+     * @return this tiles Item, if Item = null return a new item which has grass as a sprite.
+     */
     public Item getMyItem() {
         if (myItem == null) {
             myItem = new Item(this);
@@ -32,6 +36,10 @@ public class Tile {
         return myItem;
     }
 
+    /**
+     * 
+     * @param myItem set this tile's item
+     */
     public void setMyItem(Item myItem) {
         this.myItem = myItem;
     }
@@ -44,14 +52,6 @@ public class Tile {
         return tileY;
     }
 
-    public void setTileX(int tileX) {
-        this.tileX = tileX;
-    }
-
-    public void setTileY(int tileY) {
-        this.tileY = tileY;
-    }
-
     /**
      * this constructor initialises the tile and places it on the board for
      * drawing
@@ -60,15 +60,9 @@ public class Tile {
      * @param y
      */
     public Tile(int x, int y) {
-        String resPath = "";
-        String path = Map.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.
-        try {
-            resPath = URLDecoder.decode(path, "UTF-8") + "res/";//decode this path from utf-8 to a regular string.
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
 
-        ImageIcon img = new ImageIcon(resPath + "grass.png");
+        ImageIcon img = new ImageIcon(myItem.getResPath() + "grass.png");
         bgImg = img.getImage();
         
         tileX = x;

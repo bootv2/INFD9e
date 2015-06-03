@@ -21,7 +21,7 @@ public class Player extends Item {
 
     private Map map;
     private boolean paused;
-
+    //private String Message = "";
     /**
      * This creates a new player, loads all nessesary files, and places it on the map.
      * @param t spawn tile
@@ -54,6 +54,13 @@ public class Player extends Item {
         getMyTile().setMyItem(this);
     }
 
+    /*public void isPaused(Player p){   //Text Message on field
+            if(paused == true){
+            Message = "Game Paused";
+            }
+            
+        }*/
+    
     //ActionListener
     public class Al extends KeyAdapter {
 
@@ -66,12 +73,22 @@ public class Player extends Item {
         public Al(Player p) {
             this.p = p;
         }
+        
 
         public void keyPressed(KeyEvent e) {
             int keycode = e.getKeyCode();
 
             if (keycode == KeyEvent.VK_P) {
                 paused = !paused;//pause/unpause the game
+                if(paused)
+                {
+                    System.out.println("Game Paused");
+                }
+                if(!paused)
+                {
+                    System.out.println("Game Resumed");
+                }
+                
             }
 
             if (!paused) {

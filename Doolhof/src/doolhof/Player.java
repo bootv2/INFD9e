@@ -21,6 +21,7 @@ public class Player extends Item {
 
     private Map map;
     private boolean paused;
+    private Bazooka myBazooka;
     //private String Message = "";
     /**
      * This creates a new player, loads all nessesary files, and places it on the map.
@@ -89,6 +90,11 @@ public class Player extends Item {
                     System.out.println("Game Resumed");
                 }
                 
+            }
+            
+            if(keycode == KeyEvent.VK_R)
+            {
+                map.setReset(true);
             }
 
             if (!paused) {

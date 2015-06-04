@@ -6,6 +6,10 @@
 package doolhof;
 
 import java.awt.Image;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,7 +17,6 @@ import java.awt.Image;
  */
 public class Item 
 {
-    private static String resPath = "";
 
     private Image mySprite;
     private Tile myTile;
@@ -42,11 +45,14 @@ public class Item
         this.mySprite = mySprite;
     }
     
-    public static String getResPath() {
+    public String getResPath() {
+        String path = Item.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.
+        String resPath = "";
+        try {
+            resPath = URLDecoder.decode(path, "UTF-8") + "res/";//decode this path from utf-8 to a regular string.
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return resPath;
-    }
-
-    public static void setResPath(String resPath) {
-        Item.resPath = resPath;
     }
 }

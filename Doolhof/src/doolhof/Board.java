@@ -24,7 +24,7 @@ public class Board extends JPanel implements ActionListener  {
     
     public Board(){
         
-        m = new Map();//create and load map
+        m = new Map("map.txt");//create and load map
         addKeyListener(m.getAl());//add the players keylistener to the JPanel
         setFocusable(true); //adds to frame
         
@@ -46,8 +46,13 @@ public class Board extends JPanel implements ActionListener  {
     
      @Override
     public void actionPerformed(ActionEvent ae) {
-
-       
+        if(m.needsReset())
+        {
+            removeKeyListener(m.getAl());
+            m = new Map("map.txt");
+            addKeyListener(m.getAl());
+            
+        }
         repaint();//every time something happens, like a pressed key, repaint the JPanel
     }
     

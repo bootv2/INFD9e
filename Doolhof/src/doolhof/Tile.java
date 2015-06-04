@@ -60,6 +60,7 @@ public class Tile {
      * @param y
      */
     public Tile(int x, int y) {
+        myItem = new Item(this);
        
 
         ImageIcon img = new ImageIcon(myItem.getResPath() + "grass.png");

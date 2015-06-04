@@ -26,7 +26,10 @@ public class Map{
     private Scanner m;
     private Tile[][] tMap = new Tile[16][16];
 
+    
+
     private String resPath;
+    private boolean reset = false;
     
     private Player p;
     
@@ -34,6 +37,15 @@ public class Map{
 
     public Al getAl() {
         return al;
+    }
+    
+    public void setTMap(Tile[][] tMap) {
+        this.tMap = tMap.clone();
+    }
+    
+    public Tile[][] getTMap()
+    {
+        return tMap.clone();
     }
 
     public void setAl(Al al) {
@@ -46,15 +58,25 @@ public class Map{
     }
 
 
-    public Map() {
+    public Map(String file) {
         
         findResourcePath();
-        openFile("map.txt");
+        openFile(file);
         loadFile(readFile());
         closeFile();
     }
     
-    public void findResourcePath()
+    public boolean needsReset()
+    {
+        return reset;
+    }
+    
+    public void setReset(boolean r)
+    {
+        reset = r;
+    }
+    
+    private void findResourcePath()
     {
         String path = Map.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.
         try {
@@ -68,7 +90,7 @@ public class Map{
      * Opens file f
      * @param f 
      */
-    public void openFile(String f) {
+    private void openFile(String f) {
 
         try {
             m = new Scanner(new File(resPath + f));
@@ -84,9 +106,8 @@ public class Map{
      * Loads the tilemap from argument String[] rawMap
      * @param rawMap 
      */
-    public void loadFile(String[] rawMap)
+    private void loadFile(String[] rawMap)
     {
-        Item.setResPath(resPath);
         Tile t;
         Item item;
         for(int x = 0; x < 14; x++)
@@ -122,7 +143,7 @@ public class Map{
      * Reads the open file into a String[]
      * @return String[14] rawMap
      */
-    public String[] readFile() {
+    private String[] readFile() {
         String[] map = new String[14];
         while (m.hasNext()) {
             for (int i = 0; i < 14; i++) {
@@ -137,7 +158,7 @@ public class Map{
      * DO NOT FORGET THIS!!!
      * only one file can be open at a time
      */
-    public void closeFile() {
+    private void closeFile() {
         m.close();
     }
 

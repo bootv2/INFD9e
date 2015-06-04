@@ -48,9 +48,9 @@ public class Board extends JPanel implements ActionListener  {
     public void actionPerformed(ActionEvent ae) {
         if(m.needsReset())
         {
-            removeKeyListener(m.getAl());
-            m = new Map("map.txt");
-            addKeyListener(m.getAl());
+            removeKeyListener(m.getAl());//remove the old keyListener
+            m = new Map("map.txt");//reload map
+            addKeyListener(m.getAl());//set new keyListener
             
         }
         repaint();//every time something happens, like a pressed key, repaint the JPanel

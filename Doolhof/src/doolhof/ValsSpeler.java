@@ -1,18 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package doolhof;
 
+
 /**
  *
- * @author TTT
+ * @author Singh
  */
 public class ValsSpeler extends Item {
-
-    public ValsSpeler(Tile myTile) {
+    
+    public ValsSpeler(Tile myTile){
         super(myTile);
     }
-    
 }

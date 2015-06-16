@@ -24,20 +24,30 @@ public class Tile implements Comparable<Tile> {
 
     private int tileX, tileY;
 
-    private Item myItem;
+    private Item myItem = null;
 
     private Image bgImg;
 
-    private Edge[] adjacencies;
+    private ArrayList<Edge> adjacencies;
     private double minDistance = Double.POSITIVE_INFINITY;
     private Tile previous;
-    
-    public Edge[] getAdjacencies() {
+
+    public ArrayList<Edge> getAdjacencies() {
         return adjacencies;
     }
 
     public void setAdjacencies(Edge[] adjacencies) {
-        this.adjacencies = adjacencies;
+        ArrayList<Edge> traversables = new ArrayList<Edge>();
+        for (Edge e : adjacencies) {
+            if (e.getTarget() != null) {
+                if (e.getTarget().getMyItem() != null) {
+                    if (!(e.getTarget().getMyItem() instanceof Wall)) {
+                        traversables.add(e);
+                    }
+                }
+            }
+        }
+        this.adjacencies = traversables;
     }
 
     public double getMinDistance() {
@@ -56,16 +66,80 @@ public class Tile implements Comparable<Tile> {
         this.previous = previous;
     }
 
-    public String toString() {
+    public void calculateAdjacencies(Tile t, Tile[][] tMap) {
+        if (t.getTileY() != 0) {
+            if (t.getTileY() != 15) {
+                if (t.getTileX() != 0) {
+                    if (t.getTileX() != 15) {
+                        t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
+                            new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),
+                            new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1),
+                            new Edge(tMap[t.getTileX()][t.getTileY() + 1], 1)});
+                    } else {
+                        t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
+                            new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),
+                            new Edge(tMap[t.getTileX()][t.getTileY() + 1], 1)});
+                    }
+                } else {
+                    t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),
+                        new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1),
+                        new Edge(tMap[t.getTileX()][t.getTileY() + 1], 1)});
+                }
+            } else {
+                if (t.getTileX() != 0) {
+                    if (t.getTileX() != 15) {
+                        t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
+                            new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),
+                            new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1)});
+                    } else {
+                        t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
+                            new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1)});
+                    }
+                } else {
+                    t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),
+                        new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1)});
+                }
+            }
+        } else {
+            if (t.getTileX() != 0) {
+                if (t.getTileX() != 15) {
+                    t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
+                        new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1),
+                        new Edge(tMap[t.getTileX()][t.getTileY() + 1], 1)});
+                } else {
+                    t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
+                        new Edge(tMap[t.getTileX()][t.getTileY() + 1], 1)});
+                }
+            } else {
+                t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1),
+                    new Edge(tMap[t.getTileX()][t.getTileY() + 1], 1)});
+            }
+        }
+    }
+
+    public void makeDot() {
         if (myItem != null) {
             if (myItem instanceof Wall) {
-                return "Wall" + getTileX() + getTileY();
+                return;
             } else if (myItem instanceof PadVinder) {
-                return "ValsSpeler" + getTileX() + getTileY();
+                return;
+            } 
+            else if(myItem instanceof Finish)
+            {
+                return;
             }
-            else return "not yet implemented" + getTileX() + getTileY();
+            else if(myItem instanceof ValsSpeler)
+            {
+                return;
+            }
+            else if(myItem instanceof Item){//put this at the end of the if else chain otherwise some if statements may not be reached
+                myItem = new Dot(this);
+                return;
+            }
+            else return;
         } else {
-            return "empty" + getTileX() + getTileY();
+            myItem = new Dot(this);
+            return;
         }
 
     }
@@ -119,7 +193,5 @@ public class Tile implements Comparable<Tile> {
         tileX = x;
         tileY = y;
     }
-
-    
 
 }

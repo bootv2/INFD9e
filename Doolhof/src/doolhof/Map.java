@@ -110,6 +110,8 @@ public class Map{
     {
         Tile t;
         Item item;
+        Item v = null;
+        PadVinder pa = null;
         for(int x = 0; x < 14; x++)
         {
             for(int y = 0; y < 14; y++)
@@ -127,6 +129,12 @@ public class Map{
                 else if(rawMap[y].charAt(x) == 'f')
                 {
                     item = new Finish(t);
+                    v = item;
+                }
+                else if(rawMap[y].charAt(x) == '@')
+                {
+                    pa = new PadVinder(t);//create padvinder, use .setVriend() before starting the game.
+                    item = pa;
                 }
                 else
                 {
@@ -137,6 +145,8 @@ public class Map{
                 tMap[x][y] = t;
             }
         }
+        pa.setVriend(v.getMyTile());//using .setVriend()
+        pa.prepareDijkstra(this);//prepare the dijkstra algorithm
     }
 
     /**

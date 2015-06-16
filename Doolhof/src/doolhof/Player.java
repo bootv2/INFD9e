@@ -51,6 +51,11 @@ public class Player extends Item {
             System.out.println("FINISH!!!!!");
             paused = true;
         }
+        else if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof PadVinder)
+        {
+            PadVinder p = (PadVinder)map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();
+            p.printPath();
+        }
         setMyTile(map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy));
         getMyTile().setMyItem(this);
     }

@@ -63,6 +63,7 @@ public class Player extends Item {
             setMySprite(img.getImage());
             myBazooka = (Bazooka)map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();
             myBazooka.setPlayer(this);
+            myBazooka.setMap(map);
         }
         setMyTile(map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy));
         getMyTile().setMyItem(this);
@@ -148,12 +149,12 @@ public class Player extends Item {
                 }
                 if (keycode == KeyEvent.VK_SPACE) {
                     //if (p.getMyTile().getTileX() != 40) {
-                        //if (myBazooka =! null) {
+                        if (myBazooka != null) {
                             ImageIcon img = new ImageIcon(getResPath() + "player.png");//load an image from the jar path
                             setMySprite(img.getImage());    
                             myBazooka.shoot(aimDirection);
-                            
-                        //}
+                            myBazooka = null;
+                        }
                     //}
                 }
             }

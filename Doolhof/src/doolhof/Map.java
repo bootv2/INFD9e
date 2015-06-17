@@ -153,7 +153,6 @@ public class Map{
         }
         pa.setVriend(v.getMyTile());//using .setVriend()
         pa.prepareDijkstra(this);//prepare the dijkstra algorithm
-        b.setMap(this);
     }
 
     /**

@@ -136,6 +136,10 @@ public class Map{
                     pa = new PadVinder(t);//create padvinder, use .setVriend() before starting the game.
                     item = pa;
                 }
+                else if(rawMap[y].charAt(x) == 'b')
+                {
+                    item = new Bazooka(t);
+                }
                 else
                 {
                     item = null;

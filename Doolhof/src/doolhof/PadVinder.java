@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -22,6 +23,10 @@ public class PadVinder extends Item {
 
     public PadVinder(Tile myTile) {
         super(myTile);
+        
+        ImageIcon img = new ImageIcon(getResPath() + "helper.png");
+        
+        setMySprite(img.getImage());
     }
     
     public void setVriend(Tile v)

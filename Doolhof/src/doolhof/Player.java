@@ -56,6 +56,11 @@ public class Player extends Item {
             PadVinder p = (PadVinder)map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();
             p.printPath();
         }
+        else if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof Bazooka) {
+            System.out.println("Picked up Bazooka, press space to fire");
+            ImageIcon img = new ImageIcon(getResPath() + "player2.png");//load an image from the jar path
+            setMySprite(img.getImage());
+        }
         setMyTile(map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy));
         getMyTile().setMyItem(this);
     }
@@ -134,6 +139,16 @@ public class Player extends Item {
                             p.move(1, 0);
                         }
                     }
+                }
+                if (keycode == KeyEvent.VK_SPACE) {
+                    //if (p.getMyTile().getTileX() != 40) {
+                        //if (myBazooka =! null) {
+                            ImageIcon img = new ImageIcon(getResPath() + "player.png");//load an image from the jar path
+                            setMySprite(img.getImage());    
+                            //myBazooka.shoot();
+                            
+                        //}
+                    //}
                 }
             }
         }

@@ -32,6 +32,16 @@ public class Item
     public Tile getMyTile() {
         return myTile;
     }
+    
+    public void remove() { //voor schieten van muur?
+    /*    try
+        {
+            this.myTile.removeObject();
+        }catch (NullPointerException e) {
+            //ignore
+        }
+        this.myTile = null;*/
+    }
 
     public void setMyTile(Tile myTile) {
         this.myTile = myTile;

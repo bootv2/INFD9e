@@ -30,10 +30,21 @@ public class Map{
 
     private String resPath;
     private boolean reset = false;
-    
+    private boolean finished = false;
     private Player p;
     
     private Al al;
+    
+    
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+    
 
     public Al getAl() {
         return al;
@@ -161,11 +172,11 @@ public class Map{
      */
     private String[] readFile() {
         String[] map = new String[40];
-        while (m.hasNext()) {
+        
             for (int i = 0; i < 20; i++) {
                 map[i] = m.next(); //pakt per lijn
             }
-        }
+        
         return map;
     }
 

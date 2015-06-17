@@ -27,7 +27,7 @@ public class Doolhof {
             f.setTitle("Spel 9e");
             b = new Board();
             f.add(b);
-            f.setSize(1300, 700); //464 485
+            f.setSize(1296, 677); //464 485
             f.setLocationRelativeTo(null); //voor centering
             f.setVisible(true);
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

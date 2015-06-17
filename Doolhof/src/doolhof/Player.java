@@ -23,6 +23,7 @@ public class Player extends Item {
     private boolean paused;
     private Bazooka myBazooka;
     private short aimDirection = 0;
+    
     //private String Message = "";
     /**
      * This creates a new player, loads all nessesary files, and places it on the map.
@@ -50,7 +51,7 @@ public class Player extends Item {
         getMyTile().setMyItem(null);
         if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof Finish) {
             System.out.println("FINISH!!!!!");
-            paused = true;
+            map.setFinished(true);
         }
         else if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof PadVinder)
         {
@@ -125,7 +126,7 @@ public class Player extends Item {
                 }
                 if (keycode == KeyEvent.VK_S) {
                     aimDirection = 3;
-                    if (p.getMyTile().getTileY() != 20) {
+                    if (p.getMyTile().getTileY() != 19) {
                         if (!(map.getTile(p.getMyTile().getTileX(), p.getMyTile().getTileY() + 1).getMyItem() instanceof Wall)) {
                             p.move(0, 1);
                         }
@@ -141,7 +142,7 @@ public class Player extends Item {
                 }
                 if (keycode == KeyEvent.VK_D) {
                     aimDirection = 2;
-                    if (p.getMyTile().getTileX() != 40) {
+                    if (p.getMyTile().getTileX() != 39) {
                         if (!(map.getTile(p.getMyTile().getTileX() + 1, p.getMyTile().getTileY()).getMyItem() instanceof Wall)) {
                             p.move(1, 0);
                         }

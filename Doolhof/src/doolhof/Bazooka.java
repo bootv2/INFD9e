@@ -33,7 +33,7 @@ public class Bazooka extends Item {
     public void shoot(short aimdir) {
         System.out.println(p.getMyTile().getTileX() + " | " + p.getMyTile().getTileY());
         switch (aimdir) {
-            case 0:
+            case 0://shoot naar links
                 for (int x = p.getMyTile().getTileX(); x > 0; x--) {
                     if (tMap[x][p.getMyTile().getTileY()].getMyItem() != null) {
                         if (tMap[x][p.getMyTile().getTileY()].getMyItem() instanceof Wall) {
@@ -43,7 +43,7 @@ public class Bazooka extends Item {
                     }
                 }
                 break;
-            case 1:
+            case 1://shoot naar boven
                 for (int y = p.getMyTile().getTileY(); y > 0; y--) {
                     if (tMap[p.getMyTile().getTileX()][y].getMyItem() != null) {
                         if (tMap[p.getMyTile().getTileX()][y].getMyItem() instanceof Wall) {
@@ -53,7 +53,7 @@ public class Bazooka extends Item {
                     }
                 }
                 break;
-            case 2:
+            case 2: //shoot naar rechts
                 for (int x = p.getMyTile().getTileX(); x < 39; x++) {
                     if (tMap[x][p.getMyTile().getTileY()].getMyItem() != null) {
                         if (tMap[x][p.getMyTile().getTileY()].getMyItem() instanceof Wall) {
@@ -63,7 +63,7 @@ public class Bazooka extends Item {
                     }
                 }
                 break;
-            case 3:
+            case 3: //shoot naar beneden
                 for (int y = p.getMyTile().getTileY(); y < 19; y++) {
                     if (tMap[p.getMyTile().getTileX()][y].getMyItem() != null) {
                         if (tMap[p.getMyTile().getTileX()][y].getMyItem() instanceof Wall) {

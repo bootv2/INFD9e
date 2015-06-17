@@ -37,8 +37,8 @@ public class Board extends JPanel implements ActionListener  {
     public void paint(Graphics g){
         super.paint(g);
         
-        for(int x = 0;x < 14;x++){
-            for(int y = 0;y < 14;y++){//paint every tile in the map
+        for(int x = 0;x < 40;x++){
+            for(int y = 0;y < 20;y++){//paint every tile in the map
                 g.drawImage(m.getTile(x, y).getMyItem().getMySprite(), x * 32, y * 32, this);
             }
         }

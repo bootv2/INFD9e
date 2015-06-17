@@ -24,7 +24,7 @@ import javax.swing.*;
 public class Map{
     
     private Scanner m;
-    private Tile[][] tMap = new Tile[16][16];
+    private Tile[][] tMap = new Tile[40][20];
 
     
 
@@ -112,9 +112,9 @@ public class Map{
         Item item;
         Item v = null;
         PadVinder pa = null;
-        for(int x = 0; x < 14; x++)
+        for(int x = 0; x < 40; x++)
         {
-            for(int y = 0; y < 14; y++)
+            for(int y = 0; y < 20; y++)
             {
                 t = new Tile(x, y);
                 if(rawMap[y].charAt(x) == 'p')//x and y flipped because every String is a row of tiles on the x axis
@@ -145,8 +145,8 @@ public class Map{
                 tMap[x][y] = t;
             }
         }
-        pa.setVriend(v.getMyTile());//using .setVriend()
-        pa.prepareDijkstra(this);//prepare the dijkstra algorithm
+        //pa.setVriend(v.getMyTile());//using .setVriend()
+        //pa.prepareDijkstra(this);//prepare the dijkstra algorithm
     }
 
     /**
@@ -154,9 +154,9 @@ public class Map{
      * @return String[14] rawMap
      */
     private String[] readFile() {
-        String[] map = new String[14];
+        String[] map = new String[40];
         while (m.hasNext()) {
-            for (int i = 0; i < 14; i++) {
+            for (int i = 0; i < 20; i++) {
                 map[i] = m.next(); //pakt per lijn
             }
         }

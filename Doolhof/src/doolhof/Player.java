@@ -115,7 +115,7 @@ public class Player extends Item {
 
                 }
                 if (keycode == KeyEvent.VK_S) {
-                    if (p.getMyTile().getTileY() != 14) {
+                    if (p.getMyTile().getTileY() != 20) {
                         if (!(map.getTile(p.getMyTile().getTileX(), p.getMyTile().getTileY() + 1).getMyItem() instanceof Wall)) {
                             p.move(0, 1);
                         }
@@ -129,7 +129,7 @@ public class Player extends Item {
                     }
                 }
                 if (keycode == KeyEvent.VK_D) {
-                    if (p.getMyTile().getTileX() != 14) {
+                    if (p.getMyTile().getTileX() != 40) {
                         if (!(map.getTile(p.getMyTile().getTileX() + 1, p.getMyTile().getTileY()).getMyItem() instanceof Wall)) {
                             p.move(1, 0);
                         }

@@ -41,6 +41,8 @@ public class PadVinder extends Item {
 
         while (!tileQueue.isEmpty()) {
             Tile u = tileQueue.poll();
+            
+            if(u.getAdjacencies() == null) System.out.println("adjacencies are faulty");
 
             // Visit each edge exiting u
             for (Edge e : u.getAdjacencies()) {

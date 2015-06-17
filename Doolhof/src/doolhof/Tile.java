@@ -68,9 +68,9 @@ public class Tile implements Comparable<Tile> {
 
     public void calculateAdjacencies(Tile t, Tile[][] tMap) {
         if (t.getTileY() != 0) {
-            if (t.getTileY() != 15) {
+            if (t.getTileY() != 19) {
                 if (t.getTileX() != 0) {
-                    if (t.getTileX() != 15) {
+                    if (t.getTileX() != 39) {
                         t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
                             new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),
                             new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1),
@@ -87,7 +87,7 @@ public class Tile implements Comparable<Tile> {
                 }
             } else {
                 if (t.getTileX() != 0) {
-                    if (t.getTileX() != 15) {
+                    if (t.getTileX() != 39) {
                         t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
                             new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),
                             new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1)});
@@ -102,7 +102,7 @@ public class Tile implements Comparable<Tile> {
             }
         } else {
             if (t.getTileX() != 0) {
-                if (t.getTileX() != 15) {
+                if (t.getTileX() != 39) {
                     t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
                         new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1),
                         new Edge(tMap[t.getTileX()][t.getTileY() + 1], 1)});
@@ -129,6 +129,10 @@ public class Tile implements Comparable<Tile> {
                 return;
             }
             else if(myItem instanceof ValsSpeler)
+            {
+                return;
+            }
+            else if (myItem instanceof Bazooka)
             {
                 return;
             }

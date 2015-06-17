@@ -22,6 +22,7 @@ public class Player extends Item {
     private Map map;
     private boolean paused;
     private Bazooka myBazooka;
+    private short aimDirection = 0;
     //private String Message = "";
     /**
      * This creates a new player, loads all nessesary files, and places it on the map.
@@ -60,6 +61,8 @@ public class Player extends Item {
             System.out.println("Picked up Bazooka, press space to fire");
             ImageIcon img = new ImageIcon(getResPath() + "player2.png");//load an image from the jar path
             setMySprite(img.getImage());
+            myBazooka = (Bazooka)map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();
+            myBazooka.setPlayer(this);
         }
         setMyTile(map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy));
         getMyTile().setMyItem(this);
@@ -110,7 +113,7 @@ public class Player extends Item {
             if (!paused) {
                 if (keycode == KeyEvent.VK_W) {
                 //voorlopige Collision met if
-
+                    aimDirection = 1;
                     if (p.getMyTile().getTileY() != 0) {
                         if (!(map.getTile(p.getMyTile().getTileX(), p.getMyTile().getTileY() - 1).getMyItem() instanceof Wall)) {//<--collision detection
                             p.move(0, -1);//move player
@@ -120,6 +123,7 @@ public class Player extends Item {
 
                 }
                 if (keycode == KeyEvent.VK_S) {
+                    aimDirection = 3;
                     if (p.getMyTile().getTileY() != 20) {
                         if (!(map.getTile(p.getMyTile().getTileX(), p.getMyTile().getTileY() + 1).getMyItem() instanceof Wall)) {
                             p.move(0, 1);
@@ -127,6 +131,7 @@ public class Player extends Item {
                     }
                 }
                 if (keycode == KeyEvent.VK_A) {
+                    aimDirection = 0;
                     if (p.getMyTile().getTileX() != 0) {
                         if (!(map.getTile(p.getMyTile().getTileX() - 1, p.getMyTile().getTileY()).getMyItem() instanceof Wall)) {
                             p.move(-1, 0);
@@ -134,6 +139,7 @@ public class Player extends Item {
                     }
                 }
                 if (keycode == KeyEvent.VK_D) {
+                    aimDirection = 2;
                     if (p.getMyTile().getTileX() != 40) {
                         if (!(map.getTile(p.getMyTile().getTileX() + 1, p.getMyTile().getTileY()).getMyItem() instanceof Wall)) {
                             p.move(1, 0);
@@ -145,7 +151,7 @@ public class Player extends Item {
                         //if (myBazooka =! null) {
                             ImageIcon img = new ImageIcon(getResPath() + "player.png");//load an image from the jar path
                             setMySprite(img.getImage());    
-                            //myBazooka.shoot();
+                            myBazooka.shoot(aimDirection);
                             
                         //}
                     //}

@@ -111,6 +111,7 @@ public class Map{
         Tile t;
         Item item;
         Item v = null;
+        Bazooka b = null;
         PadVinder pa = null;
         for(int x = 0; x < 40; x++)
         {
@@ -139,6 +140,7 @@ public class Map{
                 else if(rawMap[y].charAt(x) == 'b')
                 {
                     item = new Bazooka(t);
+                    b = (Bazooka)item;
                 }
                 else
                 {
@@ -149,8 +151,9 @@ public class Map{
                 tMap[x][y] = t;
             }
         }
-        //pa.setVriend(v.getMyTile());//using .setVriend()
-        //pa.prepareDijkstra(this);//prepare the dijkstra algorithm
+        pa.setVriend(v.getMyTile());//using .setVriend()
+        pa.prepareDijkstra(this);//prepare the dijkstra algorithm
+        b.setMap(this);
     }
 
     /**

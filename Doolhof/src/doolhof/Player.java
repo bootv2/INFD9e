@@ -61,7 +61,7 @@ public class Player extends Item {
         stappenTeller.setStappen(stappenTeller.getStappen() + 1);
         getMyTile().setMyItem(null);
         if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof Finish) {
-            System.out.println("FINISH!!!!!");
+            JOptionPane.showMessageDialog(null, "Uitstekend, op naar de volgende level");
             map.setFinished(true);
         } else if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof PadVinder) {
             PadVinder p = (PadVinder) map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();

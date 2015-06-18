@@ -22,32 +22,32 @@ import java.util.Collections;
  */
 public class Tile implements Comparable<Tile> {
 
-    private int tileX, tileY;
+    private int tileX, tileY;//tile coordinates
 
-    private Item myItem = null;
+    private Item myItem = null;//tile's item
 
-    private Image bgImg;
+    private Image bgImg;//the standard grass image
 
-    private ArrayList<Edge> adjacencies;
-    private double minDistance = Double.POSITIVE_INFINITY;
-    private Tile previous;
+    private ArrayList<Edge> adjacencies;//this tiles adjacencies, used by the dijkstra algorithm
+    private double minDistance = Double.POSITIVE_INFINITY;//this tiles minimum distance, manipulated and used by the dijkstra algorithm
+    private Tile previous;//the previous tile used when calculating the shortest path using the dijkstra algorithm
 
     public ArrayList<Edge> getAdjacencies() {
         return adjacencies;
     }
 
-    public void setAdjacencies(Edge[] adjacencies) {
+    public void setAdjacencies(Edge[] adjacencies) {//set the adjacencies
         ArrayList<Edge> traversables = new ArrayList<Edge>();
         for (Edge e : adjacencies) {
-            if (e.getTarget() != null) {
-                if (e.getTarget().getMyItem() != null) {
-                    if (!(e.getTarget().getMyItem() instanceof Wall)) {
-                        traversables.add(e);
+            if (e.getTarget() != null) {//if the target tile isnt null
+                if (e.getTarget().getMyItem() != null) {//and the tile's item also isnt null
+                    if (!(e.getTarget().getMyItem() instanceof Wall)) {//and if the tile's item isnt a wall
+                        traversables.add(e);//add this edge to the edges that can be walked on, and thus used to calculate the shortest path
                     }
                 }
             }
         }
-        this.adjacencies = traversables;
+        this.adjacencies = traversables;//save
     }
 
     public double getMinDistance() {
@@ -67,51 +67,51 @@ public class Tile implements Comparable<Tile> {
     }
 
     public void calculateAdjacencies(Tile t, Tile[][] tMap) {
-        if (t.getTileY() != 0) {
-            if (t.getTileY() != 19) {
-                if (t.getTileX() != 0) {
-                    if (t.getTileX() != 39) {
-                        t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
+        if (t.getTileY() != 0) {//if y = 0, we cannot add -1 to the adjacencies
+            if (t.getTileY() != 19) {//if y > 19 we have already reached the 21th row, while there are only 20.
+                if (t.getTileX() != 0) {//if x = 0, we cannot add -1 to the adjacencies
+                    if (t.getTileX() != 39) {//if y > 39 we have already reached the 41th column, while there are only 40.
+                        t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),//set all adjacencies, n, e, s, w cause we're not at map edges
                             new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),
                             new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1),
                             new Edge(tMap[t.getTileX()][t.getTileY() + 1], 1)});
                     } else {
-                        t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
+                        t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),//at eastern map edge, do not add eastern adjacency
                             new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),
                             new Edge(tMap[t.getTileX()][t.getTileY() + 1], 1)});
                     }
                 } else {
-                    t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),
+                    t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),//at western map edge, do not add western adjacency
                         new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1),
                         new Edge(tMap[t.getTileX()][t.getTileY() + 1], 1)});
                 }
             } else {
-                if (t.getTileX() != 0) {
+                if (t.getTileX() != 0) {//if x = 0, we cannot add -1 to the adjacencies
                     if (t.getTileX() != 39) {
-                        t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
+                        t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),//at southern map edge, do not add southern adjacency
                             new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),
                             new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1)});
-                    } else {
+                    } else {//at southeast map edge, do not add south and east adjacency
                         t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
                             new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1)});
                     }
                 } else {
-                    t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),
+                    t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX()][t.getTileY() - 1], 1),//at south west map edge, do not add south and west adjacency
                         new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1)});
                 }
             }
         } else {
-            if (t.getTileX() != 0) {
+            if (t.getTileX() != 0) {//if x = 0, we cannot add -1 to the adjacencies
                 if (t.getTileX() != 39) {
-                    t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
+                    t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),//at northern map edge, do not add northern adjacency
                         new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1),
                         new Edge(tMap[t.getTileX()][t.getTileY() + 1], 1)});
                 } else {
-                    t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),
+                    t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() - 1][t.getTileY()], 1),//at south east map edge, do not add south and east adjacency
                         new Edge(tMap[t.getTileX()][t.getTileY() + 1], 1)});
                 }
             } else {
-                t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1),
+                t.setAdjacencies(new Edge[]{new Edge(tMap[t.getTileX() + 1][t.getTileY()], 1),//at north west map edge, do not add north and west adjacency
                     new Edge(tMap[t.getTileX()][t.getTileY() + 1], 1)});
             }
         }
@@ -119,20 +119,18 @@ public class Tile implements Comparable<Tile> {
 
     public void makeDot() {
         if (myItem != null) {
-            if (myItem instanceof Wall) {
-                return;
-            } else if (myItem instanceof PadVinder) {
+            if (myItem instanceof Helper) {//if helper on path, do not replace helper
                 return;
             } 
-            else if(myItem instanceof Finish)
+            else if(myItem instanceof Vriend)//if Vriend on path, do not replace Vriend
             {
                 return;
             }
-            else if(myItem instanceof ValsSpeler)
+            else if(myItem instanceof ValsSpeler)//if ValsSpeler on path, do not replace ValsSpeler
             {
                 return;
             }
-            else if (myItem instanceof Bazooka)
+            else if (myItem instanceof Bazooka)//if Bazooka on path, do not Bazooka helper
             {
                 return;
             }
@@ -142,7 +140,7 @@ public class Tile implements Comparable<Tile> {
             }
             else return;
         } else {
-            myItem = new Dot(this);
+            myItem = new Dot(this);//if this is all alright, create new dot.
             return;
         }
 

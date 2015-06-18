@@ -33,12 +33,12 @@ public class Doolhof {
             //JLabel textLabel = new JLabel("Aantal stappen: ",SwingConstants.CENTER); textLabel.setPreferredSize(new Dimension(10, 20)); //20 = up/down lenght
             //f.getContentPane().add(textLabel, BorderLayout.NORTH);
             
-            f.setTitle("Spel 9e");
-            b = new Board();
-            f.add(b);
-            f.setSize(1296, 677); //464 485
+            f.setTitle("Spel 9e");//sets the windows title
+            b = new Board();//create a new board, which loads and displays the game
+            f.add(b);//add the board, which extends JPanel, to the frame
+            f.setSize(1296, 677); //set the window size
             f.setLocationRelativeTo(null); //voor centering
             f.setVisible(true);
-            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit on close
         }
 }

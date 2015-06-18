@@ -17,12 +17,13 @@ import java.util.logging.Logger;
  */
 public class Item 
 {
+    //default item class, to be extended by subclasses
 
-    private Image mySprite;
-    private Tile myTile;
+    private Image mySprite;//the sprite to be painted on this item
+    private Tile myTile;//the tile this item is placed on
     
     /**
-     * Create a new item, and referenc a tile so the item knows where it's placed
+     * Create a new item, and reference a tile so the item knows where it's placed
      * @param myTile 
      */
     public Item(Tile myTile) {
@@ -31,16 +32,6 @@ public class Item
 
     public Tile getMyTile() {
         return myTile;
-    }
-    
-    public void remove() { //voor schieten van muur?
-    /*    try
-        {
-            this.myTile.removeObject();
-        }catch (NullPointerException e) {
-            //ignore
-        }
-        this.myTile = null;*/
     }
 
     public void setMyTile(Tile myTile) {
@@ -55,6 +46,10 @@ public class Item
         this.mySprite = mySprite;
     }
     
+    /**
+     * used by various items to load their sprites.
+     * @return String the path to the resources folder
+     */
     public String getResPath() {
         String path = Item.class.getProtectionDomain().getCodeSource().getLocation().getPath();//get the path of the jarfile to determine what the path of the resources is.
         String resPath = "";

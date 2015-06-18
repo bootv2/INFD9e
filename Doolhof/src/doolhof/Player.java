@@ -50,6 +50,12 @@ public class Player extends Item {
         return stappenTeller;
     }
     
+    private void nextLevel()
+    {
+        JOptionPane.showMessageDialog(null, "Uitstekend, op naar de volgende level");
+        map.setFinished(true);
+    }
+    
     /**
      * This function moves the player
      *
@@ -57,34 +63,33 @@ public class Player extends Item {
      * @param dy amount of tiles to move on the y axis(-1 = up, 1 = down)
      */
     private void move(int dx, int dy) {
-        System.out.println(stappenTeller.getStappen());
-        stappenTeller.setStappen(stappenTeller.getStappen() + 1);
-        getMyTile().setMyItem(null);
-        if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof Finish) {
-            JOptionPane.showMessageDialog(null, "Uitstekend, op naar de volgende level");
-            map.setFinished(true);
-        } else if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof PadVinder) {
-            PadVinder p = (PadVinder) map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();
-            p.printPath();
-        } else if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof Bazooka) {
-            pickupBazooka(dx, dy);
+        System.out.println(stappenTeller.getStappen());//show amount of steps
+        stappenTeller.setStappen(stappenTeller.getStappen() + 1);//increase amount of steps
+        getMyTile().setMyItem(null);//empty the tile the player was standing on before moving
+        if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof Vriend) {//if you touch vriend
+            nextLevel();//go to next level
+        } else if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof Helper) {//if you touch helper
+            Helper p = (Helper) map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();//get the helper
+            p.showPath();//show the shortest path to Vriend
+        } else if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof Bazooka) {//if you touch bazooka
+            pickupBazooka(dx, dy);//pick up this bazooka
         }
-        else if(map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof ValsSpeler)
+        else if(map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof ValsSpeler)//if you touch valsspeler
         {
-            ValsSpeler va = (ValsSpeler)map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();
-            va.pickup();
+            ValsSpeler va = (ValsSpeler)map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();//get valsspeler
+            va.pickup();//use valsspeler
         }
-        setMyTile(map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy));
-        getMyTile().setMyItem(this);
+        setMyTile(map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy));//set the players tile to the tile he moved to
+        getMyTile().setMyItem(this);//set the item of the tile the player moved to to the player.
     }
     
     private void pickupBazooka(int dx, int dy) {
-        System.out.println("Picked up Bazooka, press space to fire");
+        System.out.println("Picked up Bazooka, press space to fire");//info
         ImageIcon img = new ImageIcon(getResPath() + "player2.png");//load an image from the jar path
-        setMySprite(img.getImage());
-        myBazooka = (Bazooka) map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();
-        myBazooka.setPlayer(this);
-        myBazooka.setMap(map);
+        setMySprite(img.getImage());//sets the player sprite to the sprite when holding a bazooka
+        myBazooka = (Bazooka) map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();//assign the bazooka to myBazooka so the player can use it
+        myBazooka.setPlayer(this);//set the bazooka's player to this player
+        myBazooka.setMap(map);//set the bazooka's map so it can actually manipulate the map
     }
 
     //ActionListener

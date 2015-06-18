@@ -15,9 +15,13 @@ import javax.swing.ImageIcon;
  *
  * @author TTT
  */
-public class Finish extends Item {
+public class Vriend extends Item {//Finish, aka vriend, if the player touches this the level is won
 
-    public Finish(Tile myTile) {
+    /**
+     * create a new Finish and load the appropriate picture
+     * @param myTile 
+     */
+    public Vriend(Tile myTile) {
         super(myTile);
         
         ImageIcon img = new ImageIcon(getResPath() + "finish.png");

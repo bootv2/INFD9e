@@ -11,8 +11,13 @@ import javax.swing.ImageIcon;
  *
  * @author TTT
  */
-public class Dot extends Item{
+public class Dot extends Item{//used by pathfinder to show the path, and by bazooka to replace a shot wall with
 
+    /**
+     * create a new dot
+     * load the dots image
+     * @param myTile 
+     */
     public Dot(Tile myTile) {
         super(myTile);
         ImageIcon img = new ImageIcon(getResPath() + "dot.png");

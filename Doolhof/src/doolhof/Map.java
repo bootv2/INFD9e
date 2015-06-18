@@ -124,6 +124,7 @@ public class Map{
         Item v = null;
         Bazooka b = null;
         PadVinder pa = null;
+        ValsSpeler vs = null;
         for(int x = 0; x < 40; x++)
         {
             for(int y = 0; y < 20; y++)
@@ -153,6 +154,11 @@ public class Map{
                     item = new Bazooka(t);
                     b = (Bazooka)item;
                 }
+                else if(rawMap[y].charAt(x) == 'v')
+                {
+                    item = new ValsSpeler(t);
+                    vs = (ValsSpeler) item;
+                }
                 else
                 {
                     item = null;
@@ -164,6 +170,7 @@ public class Map{
         }
         pa.setVriend(v.getMyTile());//using .setVriend()
         pa.prepareDijkstra(this);//prepare the dijkstra algorithm
+        vs.setStappenTeller(p.getStappenTeller());
     }
 
     /**

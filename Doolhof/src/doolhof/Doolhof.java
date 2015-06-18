@@ -18,6 +18,10 @@ public class Doolhof {
     
     private Board b;
 
+    public Board getB() {
+        return b;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -35,9 +39,10 @@ public class Doolhof {
             
             f.setTitle("Spel 9e");//sets the windows title
             b = new Board();//create a new board, which loads and displays the game
-            f.add(b);//add the board, which extends JPanel, to the frame
+            
             f.setSize(1296, 677); //set the window size
             f.setLocationRelativeTo(null); //voor centering
+            f.add(b);//add the board, which extends JPanel, to the frame
             f.setVisible(true);
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit on close
         }

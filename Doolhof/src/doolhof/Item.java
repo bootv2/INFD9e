@@ -15,16 +15,17 @@ import java.util.logging.Logger;
  *
  * @author TTT
  */
-public class Item 
-{
+public class Item {
     //default item class, to be extended by subclasses
 
     private Image mySprite;//the sprite to be painted on this item
     private Tile myTile;//the tile this item is placed on
-    
+
     /**
-     * Create a new item, and reference a tile so the item knows where it's placed
-     * @param myTile 
+     * Create a new item, and reference a tile so the item knows where it's
+     * placed
+     *
+     * @param myTile
      */
     public Item(Tile myTile) {
         this.myTile = myTile;
@@ -45,9 +46,10 @@ public class Item
     public void setMySprite(Image mySprite) {
         this.mySprite = mySprite;
     }
-    
+
     /**
      * used by various items to load their sprites.
+     *
      * @return String the path to the resources folder
      */
     public String getResPath() {

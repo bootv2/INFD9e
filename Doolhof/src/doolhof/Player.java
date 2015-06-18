@@ -45,17 +45,16 @@ public class Player extends Item {
         setMySprite(img.getImage());//set the players sprite
         map.setAl(new Al(this));//bind actionListener to map so the player can respond to input
     }
-    
+
     public StappenTeller getStappenTeller() {
         return stappenTeller;
     }
-    
-    private void nextLevel()
-    {
+
+    private void nextLevel() {
         JOptionPane.showMessageDialog(null, "Uitstekend, op naar de volgende level");
         map.setFinished(true);
     }
-    
+
     /**
      * This function moves the player
      *
@@ -73,16 +72,15 @@ public class Player extends Item {
             p.showPath();//show the shortest path to Vriend
         } else if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof Bazooka) {//if you touch bazooka
             pickupBazooka(dx, dy);//pick up this bazooka
-        }
-        else if(map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof ValsSpeler)//if you touch valsspeler
+        } else if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof ValsSpeler)//if you touch valsspeler
         {
-            ValsSpeler va = (ValsSpeler)map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();//get valsspeler
+            ValsSpeler va = (ValsSpeler) map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();//get valsspeler
             va.pickup();//use valsspeler
         }
         setMyTile(map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy));//set the players tile to the tile he moved to
         getMyTile().setMyItem(this);//set the item of the tile the player moved to to the player.
     }
-    
+
     private void pickupBazooka(int dx, int dy) {
         System.out.println("Picked up Bazooka, press space to fire");//info
         ImageIcon img = new ImageIcon(getResPath() + "player2.png");//load an image from the jar path
@@ -107,6 +105,7 @@ public class Player extends Item {
         }
 
         public void keyPressed(KeyEvent e) {
+            System.out.println("key pressed");
             int keycode = e.getKeyCode();
 
             if (keycode == KeyEvent.VK_P) {

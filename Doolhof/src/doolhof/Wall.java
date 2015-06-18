@@ -15,14 +15,14 @@ import javax.swing.ImageIcon;
  *
  * @author TTT
  */
-public class Wall extends Item
-{
+public class Wall extends Item {
+
     public Wall(Tile myTile) {
         super(myTile);
-        
+
         ImageIcon img = new ImageIcon(getResPath() + "wall.png");
-        
+
         setMySprite(img.getImage());
     }
-    
+
 }

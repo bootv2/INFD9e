@@ -25,6 +25,7 @@ public class Bazooka extends Item {
 
     /**
      * Create the bazooka and set its image
+     *
      * @param myTile The tile the bazooka is on
      */
     public Bazooka(Tile myTile) {
@@ -36,6 +37,7 @@ public class Bazooka extends Item {
 
     /**
      * shoot the bazooka
+     *
      * @param aimdir direction of aiming(0 west, 1 north, 2 east, 3 south)
      */
     public void shoot(short aimdir) {

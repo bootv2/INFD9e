@@ -19,14 +19,15 @@ public class Vriend extends Item {//Finish, aka vriend, if the player touches th
 
     /**
      * create a new Finish and load the appropriate picture
-     * @param myTile 
+     *
+     * @param myTile
      */
     public Vriend(Tile myTile) {
         super(myTile);
-        
+
         ImageIcon img = new ImageIcon(getResPath() + "finish.png");
-        
+
         setMySprite(img.getImage());
     }
-    
+
 }

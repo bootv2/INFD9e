@@ -12,36 +12,38 @@ import java.util.PriorityQueue;
 import javax.swing.ImageIcon;
 
 /**
- *This class uses the dijkstra algorithm
+ * This class uses the dijkstra algorithm
+ *
  * @author TTT
  */
 public class Helper extends Item {//the pathfinder
-    
+
     private Tile vriendTile;
 
     /**
      * create a new helper and load the appropriate image
-     * @param myTile 
+     *
+     * @param myTile
      */
     public Helper(Tile myTile) {
         super(myTile);
-        
+
         ImageIcon img = new ImageIcon(getResPath() + "helper.png");
-        
+
         setMySprite(img.getImage());
     }
-    
+
     /**
      * sets the vriend tile.
+     *
      * @param v the tile Vriend is located on
      */
-    public void setVriend(Tile v)
-    {
+    public void setVriend(Tile v) {
         vriendTile = v;
     }
 
     /**
-     * 
+     *
      * @param source the tile the paths should originate from
      */
     private void computePaths(Tile source) {
@@ -77,21 +79,20 @@ public class Helper extends Item {//the pathfinder
     }
 
     /**
-     * Prepare the dijkstra algorithm for use by calculating the adjacencies for every tile in the map
-     * @param map 
+     * Prepare the dijkstra algorithm for use by calculating the adjacencies for
+     * every tile in the map
+     *
+     * @param map
      */
     public void prepareDijkstra(Map map) {
-        for(Tile[] ta : map.getTMap())
-        {
-            for(Tile t : ta)
-            {
-                if(t != null)
-                {
-                    t.calculateAdjacencies(t ,map.getTMap());
+        for (Tile[] ta : map.getTMap()) {
+            for (Tile t : ta) {
+                if (t != null) {
+                    t.calculateAdjacencies(t, map.getTMap());
                 }
             }
         }
-        
+
     }
 
     /**
@@ -101,11 +102,9 @@ public class Helper extends Item {//the pathfinder
 
         computePaths(getMyTile());//compute all paths
         List<Tile> path = getShortestPathTo(vriendTile);//Gets the shortest path to vriendTile.
-        for(Tile t : path)//for every tile in the path, place a dot
+        for (Tile t : path)//for every tile in the path, place a dot
         {
             t.makeDot();
         }
     }
 }
-
-

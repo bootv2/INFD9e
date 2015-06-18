@@ -121,24 +121,21 @@ public class Tile implements Comparable<Tile> {
         if (myItem != null) {
             if (myItem instanceof Helper) {//if helper on path, do not replace helper
                 return;
-            } 
-            else if(myItem instanceof Vriend)//if Vriend on path, do not replace Vriend
+            } else if (myItem instanceof Vriend)//if Vriend on path, do not replace Vriend
             {
                 return;
-            }
-            else if(myItem instanceof ValsSpeler)//if ValsSpeler on path, do not replace ValsSpeler
+            } else if (myItem instanceof ValsSpeler)//if ValsSpeler on path, do not replace ValsSpeler
             {
                 return;
-            }
-            else if (myItem instanceof Bazooka)//if Bazooka on path, do not Bazooka helper
+            } else if (myItem instanceof Bazooka)//if Bazooka on path, do not Bazooka helper
             {
                 return;
-            }
-            else if(myItem instanceof Item){//put this at the end of the if else chain otherwise some if statements may not be reached
+            } else if (myItem instanceof Item) {//put this at the end of the if else chain otherwise some if statements may not be reached
                 myItem = new Dot(this);
                 return;
+            } else {
+                return;
             }
-            else return;
         } else {
             myItem = new Dot(this);//if this is all alright, create new dot.
             return;

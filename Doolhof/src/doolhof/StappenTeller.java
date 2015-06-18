@@ -10,6 +10,7 @@ package doolhof;
  * @author TTT
  */
 public class StappenTeller {
+
     private int stappen = 0;//amount of steps
 
     public int getStappen() {

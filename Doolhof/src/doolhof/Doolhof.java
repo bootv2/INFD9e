@@ -4,7 +4,11 @@
  */
 package doolhof;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -24,6 +28,11 @@ public class Doolhof {
     public Doolhof()
         {
             JFrame f = new JFrame();
+            
+            //Possible solution for Label Stappen View
+            //JLabel textLabel = new JLabel("Aantal stappen: ",SwingConstants.CENTER); textLabel.setPreferredSize(new Dimension(10, 20)); //20 = up/down lenght
+            //f.getContentPane().add(textLabel, BorderLayout.NORTH);
+            
             f.setTitle("Spel 9e");
             b = new Board();
             f.add(b);

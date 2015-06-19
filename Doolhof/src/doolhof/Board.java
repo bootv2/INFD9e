@@ -20,7 +20,7 @@ public class Board extends JPanel implements ActionListener {
     private int mapnum = 1;//the number of the current map(level)
     private String mapname = "map" + mapnum;//the name of the current map
     private final String filetype = ".txt";//the filetype of the map
-    private Timer timer;
+    Timer timer;
     //private String Message = "";
     
     public Map getM() {
@@ -37,6 +37,8 @@ public class Board extends JPanel implements ActionListener {
         m = new Map(mapname + filetype);//create and load map
         addKeyListener(m.getAl());//add the players keylistener to the JPanel
         setFocusable(true); //adds to frame
+        
+
         timer = new Timer(25, this);
         timer.start();
     }
@@ -66,7 +68,6 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void nextMap() {
-        m.setFinished(false);
         if (mapnum != 3) {
             mapnum++;//increase the map number(lvl number)
             mapname = "map" + mapnum;//construct the new mapname

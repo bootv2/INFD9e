@@ -5,6 +5,7 @@
  */
 package doolhof;
 
+import java.lang.reflect.Method;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,6 +18,10 @@ import static org.junit.Assert.*;
  * @author farelia
  */
 public class PlayerTest {
+    
+    Board b;
+    Player p;
+    Map m;
     
     public PlayerTest() {
     }
@@ -31,8 +36,10 @@ public class PlayerTest {
     
     @Before
     public void setUp() {
-        Doolhof doolhof = new Doolhof();
-        doolhof.main(new String[1]);
+        Doolhof doolhof = new Doolhof("Test speler project d 92");
+        b = doolhof.getB();
+        m = b.getM();
+        p = m.getP();
     }
     
     @After
@@ -43,14 +50,47 @@ public class PlayerTest {
      * Test of getStappenTeller method, of class Player.
      */
     @Test
-    public void testGetStappenTeller() {
-        System.out.println("getStappenTeller");
-        Player instance = null;
-        StappenTeller expResult = null;
-        StappenTeller result = instance.getStappenTeller();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testPlayerWMovement() {
+        System.out.println("starting west player movement test");
+        int x = p.getMyTile().getTileX();
+        x--;
+        
+        p.movementTestingHelper(-1, 0);
+        
+        assertEquals(x, p.getMyTile().getTileX());
+    }
+    
+    @Test
+    public void testPlayerNMovement() {
+        System.out.println("starting north player movement test");
+        int y = p.getMyTile().getTileY();
+        y--;
+        
+        p.movementTestingHelper(0,-1);
+        
+        assertEquals(y, p.getMyTile().getTileY());
+    }
+    
+    @Test
+    public void testPlayeEMovement() {
+        System.out.println("starting east player movement test");
+        int x = p.getMyTile().getTileX();
+        x++;
+        
+        p.movementTestingHelper(1, 0);
+        
+        assertEquals(x, p.getMyTile().getTileX());
+    }
+    
+    @Test
+    public void testPlayerSMovement() {
+        System.out.println("starting south player movement test");
+        int y = p.getMyTile().getTileY();
+        y++;
+        
+        p.movementTestingHelper(0, 1);
+        
+        assertEquals(y, p.getMyTile().getTileY());
     }
     
 }

@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 public class Doolhof {
     
     private Board b;
+    
 
     public Board getB() {
         return b;
@@ -26,10 +27,16 @@ public class Doolhof {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new Doolhof();// TODO code application logic here
+        if(args != null)
+        {
+            if(args.length > 0)
+                new Doolhof(args[0]);// TODO code application logic here
+            else new Doolhof("noarg projectd 9e");
+        }
+        else new Doolhof("noarg projectd 9e");
     }
     
-    public Doolhof()
+    public Doolhof(String windowName)
         {
             JFrame f = new JFrame();
             
@@ -37,11 +44,12 @@ public class Doolhof {
             //JLabel textLabel = new JLabel("Aantal stappen: ",SwingConstants.CENTER); textLabel.setPreferredSize(new Dimension(10, 20)); //20 = up/down lenght
             //f.getContentPane().add(textLabel, BorderLayout.NORTH);
             
-            f.setTitle("Spel 9e");//sets the windows title
-            b = new Board();//create a new board, which loads and displays the game
+            f.setTitle(windowName);//sets the windows title
+           
             
             f.setSize(1296, 677); //set the window size
             f.setLocationRelativeTo(null); //voor centering
+            b = new Board();//create a new board, which loads and displays the game
             f.add(b);//add the board, which extends JPanel, to the frame
             f.setVisible(true);
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit on close

@@ -49,10 +49,10 @@ public class Player extends Item {
     public StappenTeller getStappenTeller() {
         return stappenTeller;
     }
-
-    private void nextLevel() {
-        JOptionPane.showMessageDialog(null, "Uitstekend, op naar de volgende level");
-        map.setFinished(true);
+    
+    public void movementTestingHelper(int dx, int dy)
+    {
+        move(dx, dy);
     }
 
     /**
@@ -66,7 +66,8 @@ public class Player extends Item {
         stappenTeller.setStappen(stappenTeller.getStappen() + 1);//increase amount of steps
         getMyTile().setMyItem(null);//empty the tile the player was standing on before moving
         if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof Vriend) {//if you touch vriend
-            nextLevel();//go to next level
+            Vriend v = (Vriend) map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();
+            v.pickup();
         } else if (map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem() instanceof Helper) {//if you touch helper
             Helper p = (Helper) map.getTile(getMyTile().getTileX() + dx, getMyTile().getTileY() + dy).getMyItem();//get the helper
             p.showPath();//show the shortest path to Vriend

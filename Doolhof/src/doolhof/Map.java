@@ -28,17 +28,13 @@ public class Map {
 
     private String resPath;//the path to the resources
     private boolean reset = false;//if true, tell Board to reload the map
-    private boolean finished = false;//if true, tell Board to load the next map
     private Player p;//The player thats on this map
+    private Vriend v;//the finish that determines if the level is done
 
     private Al al;//The players actionlistener
 
-    public void setFinished(boolean finished) {
-        this.finished = finished;
-    }
-
     public boolean isFinished() {
-        return finished;
+        return v.isPickedUp();
     }
 
     public Al getAl() {
@@ -160,6 +156,7 @@ public class Map {
         pa.setVriend(v.getMyTile());//using .setVriend()
         pa.prepareDijkstra(this);//prepare the dijkstra algorithm
         vs.setStappenTeller(p.getStappenTeller());//give ValsSpeler access to stappenteller so it can manipulate StappenTeller
+        this.v = (Vriend)v;
     }
 
     /**

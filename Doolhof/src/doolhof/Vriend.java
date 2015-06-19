@@ -10,12 +10,25 @@ import java.net.URLDecoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author TTT
  */
 public class Vriend extends Item {//Finish, aka vriend, if the player touches this the level is won
+    
+    private boolean pickedUp = false;
+
+    public boolean isPickedUp() {
+        return pickedUp;
+    }
+    
+    public void pickup()
+    {
+        JOptionPane.showMessageDialog(null, "Uitstekend, op naar de volgende level");
+        pickedUp = true;
+    }
 
     /**
      * create a new Finish and load the appropriate picture

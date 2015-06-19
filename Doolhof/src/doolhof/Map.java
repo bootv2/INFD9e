@@ -25,13 +25,19 @@ public class Map {
 
     private Scanner m;//used to load the mapfile
     private Tile[][] tMap = new Tile[40][20];//the map used by the game
+    
+    int perfectRouteSteps = 0;
 
     private String resPath;//the path to the resources
-    private boolean reset = false;//if true, tell Board to reload the map
     private Player p;//The player thats on this map
     private Vriend v;//the finish that determines if the level is done
 
     private Al al;//The players actionlistener
+    private StappenTeller stappenTeller;
+
+    public StappenTeller getStappenTeller() {
+        return stappenTeller;
+    }
 
     public boolean isFinished() {
         return v.isPickedUp();
@@ -77,14 +83,6 @@ public class Map {
         closeFile();//close the file
     }
 
-    public boolean needsReset() {
-        return reset;
-    }
-
-    public void setReset(boolean r) {
-        reset = r;
-    }
-
     /**
      * return the path of the resources folder
      */
@@ -123,6 +121,7 @@ public class Map {
         Item v = null;
         Helper pa = null;
         ValsSpeler vs = null;
+        Helper idealStepsCalc = null;
         for (int x = 0; x < 40; x++)//for every row
         {
             for (int y = 0; y < 20; y++)//and every column
@@ -131,6 +130,7 @@ public class Map {
                 if (rawMap[y].charAt(x) == 'p')//x and y flipped because every String is a row of tiles on the x axis
                 {
                     item = new Player(t, this);//create a new player
+                    idealStepsCalc = new Helper(t);
                     p = (Player) item;//set the player object to this player for later reference
                 } else if (rawMap[y].charAt(x) == 'w') {
                     item = new Wall(t);//create a new wall
@@ -156,6 +156,11 @@ public class Map {
         pa.setVriend(v.getMyTile());//using .setVriend()
         pa.prepareDijkstra(this);//prepare the dijkstra algorithm
         vs.setStappenTeller(p.getStappenTeller());//give ValsSpeler access to stappenteller so it can manipulate StappenTeller
+        idealStepsCalc.setVriend(v.getMyTile());
+        idealStepsCalc.prepareDijkstra(this);
+        stappenTeller = p.getStappenTeller();
+        perfectRouteSteps = idealStepsCalc.getShortestPathSteps();
+        System.out.println("The perfect route is " + perfectRouteSteps + " steps long!");
         this.v = (Vriend)v;
     }
 

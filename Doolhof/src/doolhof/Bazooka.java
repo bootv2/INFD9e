@@ -34,6 +34,17 @@ public class Bazooka extends Item {
 
         setMySprite(img.getImage());
     }
+    /**
+     * create a bazooka that isnt placed on the map.
+     * !ONLY USE WHEN GIVING THE PLAYER A BAZOOKA THAT ISNT PICKED UP!
+     */
+    public Bazooka()
+    {
+        super(null);
+        ImageIcon img = new ImageIcon(getResPath() + "bazooka.png");
+
+        setMySprite(img.getImage());
+    }
 
     /**
      * shoot the bazooka

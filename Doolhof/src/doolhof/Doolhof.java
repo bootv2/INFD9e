@@ -6,6 +6,9 @@ package doolhof;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -15,7 +18,7 @@ import javax.swing.SwingConstants;
  * @author Singh
  */
 public class Doolhof {
-    
+    private ButtonPanel bPane = new ButtonPanel();
     private Board b;
     
 
@@ -41,17 +44,36 @@ public class Doolhof {
             JFrame f = new JFrame();
             
             //Possible solution for Label Stappen View
-            //JLabel textLabel = new JLabel("Aantal stappen: ",SwingConstants.CENTER); textLabel.setPreferredSize(new Dimension(10, 20)); //20 = up/down lenght
-            //f.getContentPane().add(textLabel, BorderLayout.NORTH);
+            JLabel textLabel = new JLabel("Aantal stappen: ",SwingConstants.CENTER); textLabel.setPreferredSize(new Dimension(10, 20)); //20 = up/down lenght
+            f.getContentPane().add(textLabel, BorderLayout.NORTH);
             
             f.setTitle(windowName);//sets the windows title
-           
-            
-            f.setSize(1296, 677); //set the window size
+
+            f.setSize(1296, 743); //set the window size
             f.setLocationRelativeTo(null); //voor centering
             b = new Board();//create a new board, which loads and displays the game
-            f.add(b);//add the board, which extends JPanel, to the frame
+            
+            f.add(bPane, BorderLayout.SOUTH);
+            f.add(b, BorderLayout.CENTER);
             f.setVisible(true);
+            f.setResizable(false);
+            //f.addKeyListener(b.getM().getAl());
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit on close
+            
+            while(true) 
+            {
+                if(bPane.isNeedsReset())
+                {
+                    bPane.setNeedsReset(false);
+                    b.setReset(true);
+                }
+                if(bPane.isPaused())
+                {
+                    bPane.setPaused(false);
+                    b.togglePaused();
+                }
+                b.actionPerformed(new ActionEvent(this, 0, "Tick"));
+                textLabel.setText("Aantal stappen: " + b.getStappen());
+            }
         }
 }

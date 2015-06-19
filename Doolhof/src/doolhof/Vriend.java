@@ -26,7 +26,7 @@ public class Vriend extends Item {//Finish, aka vriend, if the player touches th
     
     public void pickup()
     {
-        JOptionPane.showMessageDialog(null, "Uitstekend, op naar de volgende level");
+        JOptionPane.showMessageDialog(null, "Uitstekend, level uitgespeeld!");
         pickedUp = true;
     }
 

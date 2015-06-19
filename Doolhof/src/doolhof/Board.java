@@ -20,11 +20,27 @@ public class Board extends JPanel implements ActionListener {
     private int mapnum = 1;//the number of the current map(level)
     private String mapname = "map" + mapnum;//the name of the current map
     private final String filetype = ".txt";//the filetype of the map
-    Timer timer;
+    private boolean reset = false;
+    //Timer timer;
     //private String Message = "";
+
+    public void setReset(boolean reset) {
+        this.reset = reset;
+    }
     
     public Map getM() {
         return m;
+    }
+    
+    public int getStappen()
+    {
+        return m.getStappenTeller().getStappen();
+    }
+    
+    public void togglePaused()
+    {
+        m.getP().togglePaused();
+        requestFocusInWindow();
     }
 
     /**
@@ -39,8 +55,8 @@ public class Board extends JPanel implements ActionListener {
         setFocusable(true); //adds to frame
         
 
-        timer = new Timer(25, this);
-        timer.start();
+        //timer = new Timer(25, this);
+        //timer.start();
     }
 
     /**
@@ -48,8 +64,9 @@ public class Board extends JPanel implements ActionListener {
      *
      * @param g
      */
-    public void paint(Graphics g) {
-        super.paint(g);
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
         for (int x = 0; x < 40; x++) {//40 columns
             for (int y = 0; y < 20; y++) {//20 rows | paint every tile in the map
@@ -62,9 +79,11 @@ public class Board extends JPanel implements ActionListener {
      * resets the map
      */
     private void reset() {
+        reset = false;
         removeKeyListener(m.getAl());//remove the old keyListener
         m = new Map(mapname + filetype);//reload map
         addKeyListener(m.getAl());//set new keyListener
+        requestFocusInWindow();
     }
 
     private void nextMap() {
@@ -75,13 +94,15 @@ public class Board extends JPanel implements ActionListener {
             m = new Map(mapname + filetype);//load a new map with the new mapname
             addKeyListener(m.getAl());//set new keyListener
         } else {
-            m.setReset(true);
+            JOptionPane.showMessageDialog(null, "Spel uitgespeeld! Gefeliciteerd!");
+            System.exit(0);
+            
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (m.needsReset()) {
+        if (reset) {
             reset();//if the game needs a reset, reset.
 
         } else if (m.isFinished()) {

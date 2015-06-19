@@ -94,6 +94,13 @@ public class Helper extends Item {//the pathfinder
         }
 
     }
+    
+    public int getShortestPathSteps()
+    {
+        computePaths(getMyTile());//compute all paths
+        List<Tile> path = getShortestPathTo(vriendTile);//Gets the shortest path to vriendTile.
+        return path.size();
+    }
 
     /**
      * shows the path by placing dots along the path on the map

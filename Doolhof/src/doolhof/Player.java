@@ -25,6 +25,16 @@ public class Player extends Item {
     private boolean paused;
     private Bazooka myBazooka;
     private short aimDirection = 0;
+    
+    public void testSetAimDirection(short ad)
+    {
+        aimDirection = ad;
+    }
+    
+    public void testingGiveBazooka(Bazooka b)
+    {
+        myBazooka = b;
+    }
 
     //private String Message = "";
     /**
@@ -90,6 +100,11 @@ public class Player extends Item {
         myBazooka.setPlayer(this);//set the bazooka's player to this player
         myBazooka.setMap(map);//set the bazooka's map so it can actually manipulate the map
     }
+    
+    public void togglePaused()
+    {
+        paused = !paused;
+    }
 
     //ActionListener
     public class Al extends KeyAdapter {
@@ -108,22 +123,7 @@ public class Player extends Item {
         public void keyPressed(KeyEvent e) {
             System.out.println("key pressed");
             int keycode = e.getKeyCode();
-
-            if (keycode == KeyEvent.VK_P) {
-                paused = !paused;//pause/unpause the game
-                if (paused) {
-                    System.out.println("Game Paused");
-                }
-                if (!paused) {
-                    System.out.println("Game Resumed");
-                }
-
-            }
-
-            if (keycode == KeyEvent.VK_R) {
-                map.setReset(true);
-            }
-
+            
             if (!paused) {
                 if (keycode == KeyEvent.VK_W) {
                     //voorlopige Collision met if

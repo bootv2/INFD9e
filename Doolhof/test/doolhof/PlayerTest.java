@@ -19,9 +19,9 @@ import static org.junit.Assert.*;
  */
 public class PlayerTest {
     
-    Board b;
-    Player p;
-    Map m;
+    private Board b;
+    private Player p;
+    private Map m;
     
     public PlayerTest() {
     }
@@ -36,7 +36,7 @@ public class PlayerTest {
     
     @Before
     public void setUp() {
-        Doolhof doolhof = new Doolhof("Test speler project d 92");
+        Doolhof doolhof = new Doolhof("Test speler beweging project d 92");
         b = doolhof.getB();
         m = b.getM();
         p = m.getP();
